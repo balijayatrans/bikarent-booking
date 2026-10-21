@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikarent - Sewa Motor Online</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flatpickr (Visual Datepicker) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Modern Clean Minimalist Single/Dual Month Flatpickr Styling (Match Exact Reference) */
+        .flatpickr-calendar {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+            border-radius: 0.75rem !important;
+            border: 1px solid #e2e8f0 !important;
+            padding: 16px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background: #ffffff !important;
+            width: 300px !important;
+        }
+
+        .flatpickr-calendar .flatpickr-innerContainer {
+            display: block !important;
+        }
+
+        .flatpickr-calendar .flatpickr-rContainer {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .flatpickr-calendar .dayContainer {
+            min-width: 100% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            justify-content: space-between !important;
+        }
+
+        /* Header Styling (November 2026 with « » arrows) */
+        .flatpickr-months {
+            background: transparent !important;
+            padding: 0 !important;
+            margin-bottom: 12px !important;
+            align-items: center !important;
+            position: relative !important;
+        }
+        .flatpickr-months .flatpickr-month {
+            color: #0f172a !important;
+            fill: #0f172a !important;
+            height: 32px !important;
+            background: transparent !important;
+        }
+        .flatpickr-current-month {
+            font-weight: 800 !important;
+            font-size: 1.1rem !important;
+            color: #1e293b !important;
+            padding-top: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            font-weight: 800 !important;
+            color: #1e293b !important;
+            background: transparent !important;
+            padding: 0 !important;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .flatpickr-current-month input.cur-year {
+            font-weight: 800 !important;
+            color: #1e293b !important;
+        }
+
+        /* Arrows styling using « and » */
+        .flatpickr-months .flatpickr-prev-month, 
+        .flatpickr-months .flatpickr-next-month {
+            color: #1e293b !important;
+            fill: #1e293b !important;
+            padding: 4px 8px !important;
+            border-radius: 6px !important;
+            top: 0px !important;
+            z-index: 10 !important;
+            font-size: 1.2rem !important;
+            font-weight: bold !important;
+        }
+        .flatpickr-months .flatpickr-prev-month:hover, 
+        .flatpickr-months .flatpickr-next-month:hover {
+            background: #f1f5f9 !important;
+        }
+
+        /* Header Nama Hari (Su Mo Tu We Th Fr Sa) */
+        .flatpickr-weekdays {
+            margin-bottom: 8px !important;
+            background: transparent !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+        span.flatpickr-weekday {
+            color: #0f172a !important;
+            font-weight: 800 !important;
+            font-size: 0.95rem !important;
+            text-transform: capitalize !important;
+            background: transparent !important;
+            flex: 1 !important;
+            text-align: center !important;
+        }
+
+        .flatpickr-days {
+            border-top: none !important;
+            width: 100% !important;
+        }
+        .flatpickr-day {
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            border-radius: 6px !important;
+            border: 1px solid transparent !important;
+            height: 36px !important;
+            line-height: 36px !important;
+            margin-top: 2px !important;
+            max-width: 36px !important;
+            font-size: 0.95rem !important;
+        }
+        .flatpickr-day.disabled, .flatpickr-day.disabled:hover {
+            color: #cbd5e1 !important;
+            background: transparent !important;
+            border-color: transparent !important;
+        }
+        /* Previous and Next Month days in light gray */
+        .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay {
+            color: #94a3b8 !important;
+            background: transparent !important;
+        }
+        .flatpickr-day.today {
+            border-color: #2563eb !important;
+            color: #2563eb !important;
+            background: #eff6ff !important;
+        }
+        .flatpickr-day.selected, 
+        .flatpickr-day.startRange, 
+        .flatpickr-day.endRange, 
+        .flatpickr-day.selected.inRange, 
+        .flatpickr-day.startRange.inRange, 
+        .flatpickr-day.endRange.inRange {
+            background: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            border-radius: 6px !important;
+        }
+        .flatpickr-day.inRange {
+            background: #eff6ff !important;
+            color: #1d4ed8 !important;
+            box-shadow: -5px 0 0 #eff6ff, 5px 0 0 #eff6ff !important;
+            border-radius: 0 !important;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col justify-between text-slate-800 antialiased bg-slate-50">
+
+    <!-- Top Admin Quick Banner & Alert Monitor -->
+    <div class="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-2 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+            <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-bold uppercase tracking-wider text-[11px] text-slate-200"><i class="fa-solid fa-circle-info mr-1 text-emerald-400"></i> Mode Pemantauan Realtime</span>
+            <span class="hidden sm:inline text-slate-400">| Data pesanan otomatis tersimpan di Google Sheets</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="bg-slate-800 text-slate-300 font-medium px-2.5 py-0.5 rounded-full text-[11px] border border-slate-700">
+                <i class="fa-solid fa-table-cells text-blue-400 mr-1"></i> Spreadsheet Active
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-2xl w-full mx-auto my-6 sm:my-10 px-4">
+        
+        <!-- Header Brand Card Minimalist -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm mb-6 relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 border border-blue-100/80 shadow-sm">
+                    <i class="fa-solid fa-motorcycle text-2xl"></i>
+                </div>
+                <div class="space-y-1">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[11px] font-semibold tracking-wide uppercase mb-1">
+                        <i class="fa-solid fa-shield-halved text-emerald-500"></i> Sewa Motor Instan
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Bikarent Booking</h1>
+                    <p class="text-slate-500 text-xs sm:text-sm font-normal max-w-lg leading-relaxed">
+                        Isi data pemesanan di bawah ini. Unit dan waktu pengantaran dikonfirmasi langsung oleh tim admin.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Booking Box -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xl shadow-slate-200/50 p-6 sm:p-8 space-y-6">
+            
+            <form id="bookingForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                
+                <!-- Section 1: Data Penyewa -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">1</div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Informasi Penyewa</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Nama Lengkap -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                <i class="fa-solid fa-user text-slate-400 mr-1.5"></i>Nama Lengkap *
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-address-card text-sm"></i>
+                                </span>
+                                <input type="text" id="nama" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition font-medium text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Sesuai KTP / SIM / Paspor">
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                <i class="fa-brands fa-whatsapp text-emerald-500 mr-1.5"></i>No. WhatsApp *
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-phone text-sm"></i>
+                                </span>
+                                <input type="tel" id="whatsapp" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition font-medium text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="08123456789">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Pilihan Unit & Tanggal -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">2</div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Unit Motor & Durasi</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Custom Select Motor Dropdown -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                <i class="fa-solid fa-motorcycle text-slate-400 mr-1.5"></i>Pilih Jenis Motor *
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-key text-sm"></i>
+                                </span>
+                                <button type="button" id="customSelectBtn" onclick="toggleCustomSelect()" class="w-full pl-10 pr-10 py-3 bg-slate-50/70 border border-slate-200 rounded-xl text-left focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 flex items-center justify-between transition">
+                                    <span id="selectedMotorText" class="truncate">-- Memuat Daftar Motor --</span>
+                                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200 absolute right-3.5 top-1/2 -translate-y-1/2" id="selectArrow"></i>
+                                </button>
+
+                                <!-- Options Container -->
+                                <div id="customSelectDropdown" class="hidden absolute left-0 right-0 top-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 max-h-60 overflow-y-auto custom-scrollbar p-2 space-y-1">
+                                    <!-- Dynamic options inserted here -->
+                                </div>
+                            </div>
+                            <input type="hidden" id="jenisMotor" required>
+                        </div>
+
+                        <!-- Datepicker Range & Quantity -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <!-- Rentang Tanggal -->
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                    <i class="fa-solid fa-calendar-days text-slate-400 mr-1.5"></i>Rentang Tanggal Sewa *
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fa-solid fa-calendar text-sm"></i>
+                                    </span>
+                                    <input type="text" id="tanggalSewa" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-medium text-slate-800 cursor-pointer placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Pilih Tanggal Mulai - Selesai">
+                                </div>
+                            </div>
+
+                            <!-- Durasi -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                    <i class="fa-solid fa-hourglass-half text-slate-400 mr-1.5"></i>Durasi
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-600">
+                                        <i class="fa-solid fa-clock text-sm"></i>
+                                    </span>
+                                    <input type="text" id="durasi" readonly class="w-full pl-10 pr-4 py-3 bg-blue-50/50 border border-blue-200/80 rounded-xl text-blue-700 font-bold text-sm text-center" value="1 Hari">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Qty -->
+                        <div class="w-full sm:w-1/2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                <i class="fa-solid fa-cubes text-slate-400 mr-1.5"></i>Jumlah Unit *
+                            </label>
+                            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50/70">
+                                <button type="button" onclick="adjustQty(-1)" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold transition">
+                                    <i class="fa-solid fa-minus text-xs"></i>
+                                </button>
+                                <input type="number" id="qty" min="1" value="1" readonly class="w-full text-center bg-transparent font-bold text-sm text-slate-800 outline-none">
+                                <button type="button" onclick="adjustQty(1)" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold transition">
+                                    <i class="fa-solid fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Lokasi Penyerahan & Pengembalian -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">3</div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Penyerahan & Pengembalian</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Field Penyerahan Unit -->
+                        <div class="space-y-3 bg-slate-50/60 p-4 rounded-2xl border border-slate-200/70">
+                            <!-- Text Area Alamat Penyerahan -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                                    <i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>Alamat Penyerahan *
+                                </label>
+                                <div class="relative">
+                                    <textarea id="alamatAntar" rows="3" required class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-slate-800 font-medium transition placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Alamat lengkap / Nama Hotel / Bandara / Stasiun"></textarea>
+                                    <span class="absolute top-3 left-3 text-slate-400 pointer-events-none">
+                                        <i class="fa-solid fa-map-pin text-xs"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Custom Select Jam Penyerahan -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                                    <i class="fa-solid fa-clock text-slate-400 mr-1"></i>Jam Penyerahan *
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 z-10">
+                                        <i class="fa-regular fa-clock text-xs"></i>
+                                    </span>
+                                    <button type="button" id="timeAntarBtn" onclick="toggleTimeSelect('Antar')" class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-200 rounded-xl text-left text-xs font-semibold text-slate-700 flex items-center justify-between outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition relative">
+                                        <span id="selectedAntarTimeText" class="truncate">09:00 WITA</span>
+                                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200 absolute right-3 top-1/2 -translate-y-1/2" id="timeAntarArrow"></i>
+                                    </button>
+
+                                    <!-- Dropdown Time Grid Custom -->
+                                    <div id="timeAntarDropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 p-2 grid grid-cols-3 gap-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                                        <!-- Time slots populated via JS -->
+                                    </div>
+                                </div>
+                                <input type="hidden" id="waktuAntar" value="09:00 WITA">
+                            </div>
+                        </div>
+
+                        <!-- Field Pengembalian Unit -->
+                        <div class="space-y-3 bg-slate-50/60 p-4 rounded-2xl border border-slate-200/70">
+                            <!-- Text Area Alamat Pengembalian -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                                    <i class="fa-solid fa-location-arrow text-slate-400 mr-1"></i>Alamat Pengembalian *
+                                </label>
+                                <div class="relative">
+                                    <textarea id="alamatKembali" rows="3" required class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-slate-800 font-medium transition placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Alamat pengembalian unit / Hotel / Bandara"></textarea>
+                                    <span class="absolute top-3 left-3 text-slate-400 pointer-events-none">
+                                        <i class="fa-solid fa-map-location-dot text-xs"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Custom Select Jam Pengembalian -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                                    <i class="fa-solid fa-clock text-slate-400 mr-1"></i>Jam Pengembalian *
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 z-10">
+                                        <i class="fa-regular fa-clock text-xs"></i>
+                                    </span>
+                                    <button type="button" id="timeKembaliBtn" onclick="toggleTimeSelect('Kembali')" class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-200 rounded-xl text-left text-xs font-semibold text-slate-700 flex items-center justify-between outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition relative">
+                                        <span id="selectedKembaliTimeText" class="truncate">09:00 WITA</span>
+                                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200 absolute right-3 top-1/2 -translate-y-1/2" id="timeKembaliArrow"></i>
+                                    </button>
+
+                                    <!-- Dropdown Time Grid Custom -->
+                                    <div id="timeKembaliDropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 p-2 grid grid-cols-3 gap-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                                        <!-- Time slots populated via JS -->
+                                    </div>
+                                </div>
+                                <input type="hidden" id="waktuKembali" value="09:00 WITA">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catatan Tambahan -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                        <i class="fa-solid fa-note-sticky text-slate-400 mr-1.5"></i>Catatan Tambahan (Opsional)
+                    </label>
+                    <div class="relative">
+                        <textarea id="pesan" rows="2" class="w-full pl-9 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Contoh: Helm 2 pcs ukuran L, jas hujan..."></textarea>
+                        <span class="absolute top-3.5 left-3 text-slate-400 pointer-events-none">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Submit Button: Icon + Kirim Pesan -->
+                <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-4 px-6 rounded-2xl transition duration-200 shadow-md hover:shadow-lg hover:shadow-emerald-600/20 flex items-center justify-center gap-2.5 text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Kirim Pesan</span>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Modal Success / Auto WhatsApp Redirect -->
+    <div id="successModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200 text-center relative border border-slate-100">
+            
+            <div>
+                <span class="bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-blue-100">
+                    Kode Booking: <span id="modalBookingCode" class="text-blue-900">BKR-000</span>
+                </span>
+                <h3 class="text-xl font-extrabold text-slate-900 mt-2.5">Pesanan Siap Dikirim!</h3>
+                <p class="text-slate-500 text-xs mt-1 leading-relaxed">
+                    Klik tombol di bawah untuk meneruskan detail pesanan ke WhatsApp Admin Bikarent.
+                </p>
+            </div>
+
+            <!-- Preview Pesan WhatsApp Auto Response -->
+            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-left text-xs text-slate-700 space-y-1 font-mono overflow-x-auto max-h-40 custom-scrollbar">
+                <p class="font-bold text-slate-800 font-sans text-[11px] uppercase tracking-wider">Format Pesan WhatsApp:</p>
+                <div id="modalWaPreview" class="whitespace-pre-wrap text-[11px] leading-relaxed text-slate-600"></div>
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <a id="modalWaBtn" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Kirim Pesan</span>
+                </a>
+                <button type="button" onclick="closeModal()" class="w-full py-2 text-xs text-slate-400 hover:text-slate-600 font-semibold">
+                    Tutup
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-xs text-slate-400">
+        &copy; 2026 Bikarent Management System. All rights reserved.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
+    <script>
+        // CONFIGURATION
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEBay3jzDbYw7iUdlG2Jt3oIXgT4r61_fX9BMHK1gdd6BxPJOZfygNa_MzChfVf_6uHw/exec";
+        const ADMIN_WHATSAPP = "6281999009090";
+        const COMPANY_NAME = "Bikarent";
+
+        const mockMotorList = [
+            "Honda Vario 125cc",
+            "Honda Scoopy 110cc",
+            "Yamaha NMAX 155cc",
+            "Honda PCX 160cc",
+            "Yamaha Aerox 155cc",
+            "Honda Beat 110cc",
+            "Vespa LX 125cc"
+        ];
+
+        const timeSlots = [
+            "08:00 WITA", "09:00 WITA", "10:00 WITA",
+            "11:00 WITA", "12:00 WITA", "13:00 WITA",
+            "14:00 WITA", "15:00 WITA", "16:00 WITA",
+            "17:00 WITA", "18:00 WITA", "19:00 WITA", "20:00 WITA"
+        ];
+
+        let selectedStartDate = new Date();
+        let selectedEndDate = new Date();
+        let durasiHari = 1;
+
+        // Fetch Motor List
+        async function fetchMotorList() {
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const resData = await response.json();
+
+                if (resData.status === "success" && Array.isArray(resData.data) && resData.data.length > 0) {
+                    populateCustomSelect(resData.data);
+                } else {
+                    populateCustomSelect(mockMotorList);
+                }
+            } catch (error) {
+                populateCustomSelect(mockMotorList);
+            }
+        }
+
+        // Custom Motor Select
+        function populateCustomSelect(items) {
+            const container = document.getElementById('customSelectDropdown');
+            container.innerHTML = '';
+
+            items.forEach((item) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = "px-3 py-2.5 hover:bg-blue-50 rounded-xl text-xs font-semibold text-slate-700 cursor-pointer flex items-center justify-between transition";
+                optionEl.innerHTML = `
+                    <span>${item}</span>
+                    <i class="fa-solid fa-check text-blue-600 hidden select-check text-xs"></i>
+                `;
+                optionEl.onclick = () => selectMotor(item, optionEl);
+                container.appendChild(optionEl);
+            });
+
+            if(items.length > 0) {
+                selectMotor(items[0], container.children[0]);
+            }
+        }
+
+        function toggleCustomSelect() {
+            const dropdown = document.getElementById('customSelectDropdown');
+            const arrow = document.getElementById('selectArrow');
+            dropdown.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
+
+        function selectMotor(value, element) {
+            document.getElementById('selectedMotorText').textContent = value;
+            document.getElementById('jenisMotor').value = value;
+
+            document.querySelectorAll('#customSelectDropdown > div').forEach(el => {
+                el.classList.remove('bg-blue-50', 'text-blue-700');
+                el.querySelector('.select-check').classList.add('hidden');
+            });
+            element.classList.add('bg-blue-50', 'text-blue-700');
+            element.querySelector('.select-check').classList.remove('hidden');
+
+            document.getElementById('customSelectDropdown').classList.add('hidden');
+            document.getElementById('selectArrow').classList.remove('rotate-180');
+        }
+
+        // Custom Time Select Pickers (Penyerahan & Pengembalian)
+        function initTimeSlots() {
+            ['Antar', 'Kembali'].forEach(type => {
+                const container = document.getElementById(`time${type}Dropdown`);
+                container.innerHTML = '';
+
+                timeSlots.forEach(time => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `px-2 py-1.5 rounded-lg text-[11px] font-semibold border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition text-center text-slate-600 ${time === '09:00 WITA' ? 'bg-blue-50 text-blue-600 border-blue-200' : ''}`;
+                    btn.textContent = time;
+                    btn.onclick = () => selectTimeSlot(type, time, btn);
+                    container.appendChild(btn);
+                });
+            });
+        }
+
+        function toggleTimeSelect(type) {
+            const dropdown = document.getElementById(`time${type}Dropdown`);
+            const arrow = document.getElementById(`time${type}Arrow`);
+            
+            // Close other dropdowns
+            const otherType = type === 'Antar' ? 'Kembali' : 'Antar';
+            document.getElementById(`time${otherType}Dropdown`).classList.add('hidden');
+            document.getElementById(`time${otherType}Arrow`).classList.remove('rotate-180');
+
+            dropdown.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
+
+        function selectTimeSlot(type, time, element) {
+            document.getElementById(`selected${type}TimeText`).textContent = time;
+            document.getElementById(`waktu${type}`).value = time;
+
+            const container = document.getElementById(`time${type}Dropdown`);
+            container.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
+            });
+            element.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200');
+
+            // Auto-sync return time if delivery time is selected and return hasn't been manually interacted
+            if (type === 'Antar') {
+                document.getElementById('selectedKembaliTimeText').textContent = time;
+                document.getElementById('waktuKembali').value = time;
+                const kembaliContainer = document.getElementById('timeKembaliDropdown');
+                kembaliContainer.querySelectorAll('button').forEach(btn => {
+                    if (btn.textContent === time) {
+                        btn.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200');
+                    } else {
+                        btn.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
+                    }
+                });
+            }
+
+            container.classList.add('hidden');
+            document.getElementById(`time${type}Arrow`).classList.remove('rotate-180');
+        }
+
+        // Quantity Adjuster
+        function adjustQty(amount) {
+            const qtyInput = document.getElementById('qty');
+            let current = parseInt(qtyInput.value) || 1;
+            current = Math.max(1, current + amount);
+            qtyInput.value = current;
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMotorList();
+            initTimeSlots();
+
+            flatpickr("#tanggalSewa", {
+                mode: "range",
+                showMonths: 1,
+                dateFormat: "d M Y",
+                minDate: "today",
+                defaultDate: ["today", "today"],
+                prevArrow: "&laquo;",
+                nextArrow: "&raquo;",
+                locale: {
+                    firstDayOfWeek: 0, // Minggu (Su Mo Tu We Th Fr Sa)
+                    weekdays: {
+                        shorthand: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                        longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                    },
+                    months: {
+                        shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                        longhand: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+                    }
+                },
+                onChange: function(selectedDates) {
+                    if (selectedDates.length === 2) {
+                        selectedStartDate = selectedDates[0];
+                        selectedEndDate = selectedDates[1];
+                        const diffTime = Math.abs(selectedEndDate - selectedStartDate);
+                        durasiHari = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                        document.getElementById('durasi').value = `${durasiHari} Hari`;
+                    } else if (selectedDates.length === 1) {
+                        selectedStartDate = selectedDates[0];
+                        selectedEndDate = selectedDates[0];
+                        durasiHari = 1;
+                        document.getElementById('durasi').value = `1 Hari`;
+                    }
+                }
+            });
+
+            // Sync Alamat Penyerahan & Pengembalian Textarea automatically
+            document.getElementById('alamatAntar').addEventListener('input', function() {
+                document.getElementById('alamatKembali').value = this.value;
+            });
+        });
+
+        // Close dropdowns on outside click
+        window.addEventListener('click', function(e) {
+            const btn = document.getElementById('customSelectBtn');
+            const dropdown = document.getElementById('customSelectDropdown');
+            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+                document.getElementById('selectArrow').classList.remove('rotate-180');
+            }
+
+            ['Antar', 'Kembali'].forEach(type => {
+                const tBtn = document.getElementById(`time${type}Btn`);
+                const tDropdown = document.getElementById(`time${type}Dropdown`);
+                if (tBtn && tDropdown && !tBtn.contains(e.target) && !tDropdown.contains(e.target)) {
+                    tDropdown.classList.add('hidden');
+                    document.getElementById(`time${type}Arrow`).classList.remove('rotate-180');
+                }
+            });
+        });
+
+        // Submit Form Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomStr = '';
+            for (let i = 0; i < 3; i++) {
+                randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            const bookingCode = `BKR-${randomStr}`;
+
+            const formData = {
+                bookingCode: bookingCode,
+                nama: document.getElementById('nama').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                tanggalMulai: selectedStartDate.toISOString(),
+                tanggalSelesai: selectedEndDate.toISOString(),
+                durasi: `${durasiHari} Hari`,
+                jenisMotor: document.getElementById('jenisMotor').value,
+                qty: document.getElementById('qty').value,
+                alamatAntar: document.getElementById('alamatAntar').value,
+                waktuAntar: document.getElementById('waktuAntar').value,
+                alamatKembali: document.getElementById('alamatKembali').value,
+                waktuKembali: document.getElementById('waktuKembali').value,
+                pesan: document.getElementById('pesan').value || '-'
+            };
+
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            const formatTglShort = (d) => `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+            const waMessage = 
+`*RESERVASI SEWA MOTOR - ${COMPANY_NAME.toUpperCase()}*
+----------------------------------------
+*Kode Booking:* ${formData.bookingCode}
+*Nama:* ${formData.nama}
+*WhatsApp:* ${formData.whatsapp}
+*Unit:* ${formData.jenisMotor} (${formData.qty} Unit)
+*Tanggal:* ${formatTglShort(selectedStartDate)} - ${formatTglShort(selectedEndDate)} (${formData.durasi})
+*Penyerahan Unit:* ${formData.alamatAntar} (${formData.waktuAntar})
+*Pengembalian Unit:* ${formData.alamatKembali} (${formData.waktuKembali})
+*Catatan:* ${formData.pesan}
+----------------------------------------
+Halo Admin ${COMPANY_NAME}, mohon konfirmasi ketersediaan unit untuk pesanan ini. Terima kasih!`;
+
+            const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(waMessage)}`;
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            }).catch(err => console.log('Apps Script logging...'));
+
+            document.getElementById('modalBookingCode').textContent = formData.bookingCode;
+            document.getElementById('modalWaPreview').textContent = waMessage;
+            document.getElementById('modalWaBtn').href = waUrl;
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('bookingForm').reset();
+            document.getElementById('durasi').value = '1 Hari';
+        }
+    </script>
+</body>
+</html>
