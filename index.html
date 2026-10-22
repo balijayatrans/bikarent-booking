@@ -1,757 +1,1132 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full bg-slate-50">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <base target="_top">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bikarent - Sewa Motor Online</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
+    <title>Form Booking Motor - Bikarent</title>
+    <!-- Google Fonts Inter & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Flatpickr (Visual Datepicker) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
         
-        /* Modern Clean Minimalist Single/Dual Month Flatpickr Styling */
-        .flatpickr-calendar {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
-            border-radius: 0.75rem !important;
-            border: 1px solid #e2e8f0 !important;
-            padding: 16px !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
-            background: #ffffff !important;
-            width: 300px !important;
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc; 
+            color: #334155;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .form-container { 
+            width: 100%; 
+            max-width: 580px; 
+            padding: 24px; 
+            background: #ffffff; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        .flatpickr-calendar .flatpickr-innerContainer {
-            display: block !important;
+        .header-title {
+            text-align: center;
+            margin: -24px -24px 20px -24px;
+            padding: 22px 24px 0px 24px;
+            background: linear-gradient(135deg, #f1c10f 0%, #f39c12 100%);
+            width: calc(100% + 48px);
+            box-sizing: border-box;
+            position: relative;
         }
 
-        .flatpickr-calendar .flatpickr-rContainer {
-            display: block !important;
-            width: 100% !important;
+        .header-title h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .flatpickr-calendar .dayContainer {
-            min-width: 100% !important;
-            max-width: 100% !important;
-            width: 100% !important;
-            justify-content: space-between !important;
+        .header-title p {
+            font-size: 13px;
+            color: #334155;
+            margin-top: 4px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        /* Header Styling */
-        .flatpickr-months {
-            background: transparent !important;
-            padding: 0 !important;
-            margin-bottom: 12px !important;
-            align-items: center !important;
-            position: relative !important;
+        .header-divider {
+            height: 4px;
+            width: 100%;
+            background: #d39e00;
+            margin: 0;
+            border-radius: 0;
         }
-        .flatpickr-months .flatpickr-month {
-            color: #0f172a !important;
-            fill: #0f172a !important;
-            height: 32px !important;
-            background: transparent !important;
+        
+        .form-group {
+            margin-bottom: 14px;
         }
-        .flatpickr-current-month {
-            font-weight: 800 !important;
-            font-size: 1.1rem !important;
-            color: #1e293b !important;
-            padding-top: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+        
+        label { 
+            display: block; 
+            margin-bottom: 6px;
+            font-weight: 600; 
+            font-size: 12px; 
+            color: #475569;
+            text-transform: none;
+            letter-spacing: 0.1px;
         }
-        .flatpickr-current-month .flatpickr-monthDropdown-months {
-            font-weight: 800 !important;
-            color: #1e293b !important;
-            background: transparent !important;
-            padding: 0 !important;
-            appearance: none;
+        
+        .input-icon-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-icon-wrapper i.field-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .input-icon-wrapper input, 
+        .input-icon-wrapper select, 
+        .input-icon-wrapper textarea {
+            padding-left: 36px !important;
+        }
+
+        select {
             -webkit-appearance: none;
-        }
-        .flatpickr-current-month input.cur-year {
-            font-weight: 800 !important;
-            color: #1e293b !important;
+            -moz-appearance: none;
+            appearance: none;
         }
 
-        /* Arrows styling using « and » */
-        .flatpickr-months .flatpickr-prev-month, 
-        .flatpickr-months .flatpickr-next-month {
+        input, select, textarea { 
+            width: 100%; 
+            padding: 10px 12px; 
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
             color: #1e293b !important;
-            fill: #1e293b !important;
-            padding: 4px 8px !important;
-            border-radius: 6px !important;
-            top: 0px !important;
-            z-index: 10 !important;
-            font-size: 1.2rem !important;
-            font-weight: bold !important;
-        }
-        .flatpickr-months .flatpickr-prev-month:hover, 
-        .flatpickr-months .flatpickr-next-month:hover {
-            background: #f1f5f9 !important;
+            height: 40px;
+            box-sizing: border-box;
         }
 
-        /* Header Nama Hari */
-        .flatpickr-weekdays {
-            margin-bottom: 8px !important;
-            background: transparent !important;
-            display: flex !important;
-            align-items: center !important;
-            width: 100% !important;
-        }
-        span.flatpickr-weekday {
-            color: #0f172a !important;
-            font-weight: 800 !important;
-            font-size: 0.95rem !important;
-            text-transform: capitalize !important;
-            background: transparent !important;
-            flex: 1 !important;
-            text-align: center !important;
+        textarea {
+            resize: vertical;
+            line-height: 1.4;
         }
 
-        .flatpickr-days {
-            border-top: none !important;
-            width: 100% !important;
-        }
-        .flatpickr-day {
-            color: #1e293b !important;
-            font-weight: 600 !important;
-            border-radius: 6px !important;
-            border: 1px solid transparent !important;
-            height: 36px !important;
-            line-height: 36px !important;
-            margin-top: 2px !important;
-            max-width: 36px !important;
-            font-size: 0.95rem !important;
-        }
-        .flatpickr-day.disabled, .flatpickr-day.disabled:hover {
-            color: #cbd5e1 !important;
-            background: transparent !important;
-            border-color: transparent !important;
-        }
-        .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay {
+        input::placeholder, 
+        select::placeholder, 
+        textarea::placeholder {
             color: #94a3b8 !important;
-            background: transparent !important;
-        }
-        .flatpickr-day.today {
-            border-color: #2563eb !important;
-            color: #2563eb !important;
-            background: #eff6ff !important;
-        }
-        .flatpickr-day.selected, 
-        .flatpickr-day.startRange, 
-        .flatpickr-day.endRange, 
-        .flatpickr-day.selected.inRange, 
-        .flatpickr-day.startRange.inRange, 
-        .flatpickr-day.endRange.inRange {
-            background: #2563eb !important;
-            border-color: #2563eb !important;
-            color: #ffffff !important;
-            font-weight: 700 !important;
-            border-radius: 6px !important;
-        }
-        .flatpickr-day.inRange {
-            background: #eff6ff !important;
-            color: #1d4ed8 !important;
-            box-shadow: -5px 0 0 #eff6ff, 5px 0 0 #eff6ff !important;
-            border-radius: 0 !important;
+            font-weight: 400 !important;
+            font-size: 13px !important;
+            opacity: 1;
         }
 
-        /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f8fafc;
+
+        .grid-address-time textarea {
+            height: 40px;
+            min-height: 40px;
+            padding-top: 9px !important;
+            padding-bottom: 9px !important;
+            padding-right: 12px;
+            overflow: hidden;
+        }
+
+        .grid-address-time textarea:focus {
+            height: 52px;
+            overflow-y: auto;
+        }
+
+        .notes-textarea {
+            height: 52px !important;
+            min-height: 52px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            padding-right: 12px;
+        }
+
+        .grid-user-info {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 2px;
+        }
+
+        .grid-user-info > * {
+            flex: 1;
+        }
+
+        .grid-date-duration {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .grid-date-duration > *:nth-child(1) { 
+            flex: 1;
+        }
+        .grid-date-duration > *:nth-child(2) { 
+            width: 140px;
+            flex-shrink: 0; 
+        }
+
+        .grid-address-time {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .grid-address-time > *:nth-child(1) { flex: 1; }
+        .grid-address-time > *:nth-child(2) { width: 140px; flex-shrink: 0; }
+
+        .motor-row-card {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+
+        .motor-row {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .motor-row .motor-select-col { flex: 1; }
+        .motor-row .motor-qty-col { width: 97px; flex-shrink: 0; }
+        .motor-row .motor-btn-col { width: 38px; flex-shrink: 0; display: flex; justify-content: center; }
+
+        .motor-row select[name="qty[]"] { 
+            text-align: center; 
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            color: #1e293b !important;
+            font-family: 'Inter', sans-serif !important;
+            padding: 10px 4px !important;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .grid-user-info {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .grid-address-time {
+                flex-direction: column;
+                gap: 0;
+            }
+            .grid-address-time > *:nth-child(2) {
+                width: 100%;
+            }
+
+            .grid-address-time textarea {
+                height: 52px;
+                min-height: 52px;
+                padding-top: 10px !important;
+            }
+
+            .grid-date-duration {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 14px;
+            }
+
+            .grid-date-duration > *:nth-child(1) { 
+                flex: 1; 
+            }
+
+            .grid-date-duration > *:nth-child(2) { 
+                width: 140px; 
+                flex-shrink: 0;
+            }
+        }
+
+        .btn-action {
+            width: 38px;
+            height: 38px;
             border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+        .btn-add { background-color: #10b981; }
+        .btn-add:hover { background-color: #059669; }
+        .btn-add.disabled {
+            background-color: #cbd5e1 !important;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .btn-remove { background-color: #ef4444; }
+        .btn-remove:hover { background-color: #dc2626; }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .estimation-card {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 0;
+        }
+
+        .estimation-breakdown {
+            font-size: 13px;
+            color: #334155;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .breakdown-item-sub {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: -4px;
+            margin-bottom: 6px;
+        }
+
+        .estimation-card .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .estimation-card .value-total {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1d4ed8;
+        }
+
+        .bottom-action-grid {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-check-price {
+            flex: 1;
+            background-color: #0284c7;
+            color: white;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+        }
+
+        .btn-check-price:hover {
+            background-color: #0369a1;
+            transform: translateY(-1px);
+        }
+
+        .whatsapp-submit-btn {
+            flex: 1.2;
+            background-color: #16a34a;
+            color: white;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+        }
+
+        .whatsapp-submit-btn:hover {
+            background-color: #15803d;
+            transform: translateY(-1px);
+        }
+
+        .price-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .price-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .price-modal {
+            width: 100%;
+            max-width: 460px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 22px;
+            transform: scale(0.92);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
+        }
+
+        .price-modal-overlay.active .price-modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Calendar Tooltip styling */
+        .flatpickr-calendar .flatpickr-day-tooltip {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: #ffffff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 99;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .validation-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #ef4444;
+            color: white;
+            padding: 10px 18px;
             border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+
+        .validation-toast.show {
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
-<body class="min-h-full flex flex-col justify-between text-slate-800 antialiased bg-slate-50">
+<body>
 
-    <!-- Main Container -->
-    <div class="max-w-2xl w-full mx-auto my-6 sm:my-10 px-4">
-        
-        <!-- Header Brand Card Minimalist -->
-        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm mb-6 relative overflow-hidden">
-            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 border border-blue-100/80 shadow-sm">
-                    <i class="fa-solid fa-motorcycle text-2xl"></i>
-                </div>
-                <div class="space-y-1">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[11px] font-semibold tracking-wide uppercase mb-1">
-                        <i class="fa-solid fa-shield-halved text-emerald-500"></i> Sewa Motor Instan
-                    </div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Bikarent Booking</h1>
-                    <p class="text-slate-500 text-xs sm:text-sm font-normal max-w-lg leading-relaxed">
-                        Isi data pemesanan di bawah ini. Unit dan waktu pengantaran dikonfirmasi langsung oleh tim admin.
-                    </p>
-                </div>
-            </div>
+    <div class="form-container">
+        <div class="header-title">
+            <h2><i class="fa-solid fa-motorcycle" style="color: #1e293b;"></i> Form Sewa Motor Bikarent</h2>
+            <p>Isi formulir di bawah ini untuk reservasi unit</p>
+            <div class="header-divider"></div>
         </div>
 
-        <!-- Form Booking Box -->
-        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xl shadow-slate-200/50 p-6 sm:p-8 space-y-6">
+        <form id="bookingForm" onsubmit="submitForm(event)">
             
-            <form id="bookingForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
-                
-                <!-- Section 1: Data Penyewa -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">1</div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Informasi Penyewa</h3>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Nama Lengkap -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                <i class="fa-solid fa-user text-slate-400 mr-1.5"></i>Nama Lengkap *
-                            </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                    <i class="fa-solid fa-address-card text-sm"></i>
-                                </span>
-                                <input type="text" id="nama" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition font-medium text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Sesuai KTP / SIM / Paspor">
-                            </div>
-                        </div>
+            <input type="hidden" id="nopol" name="nopol" value="">
+            <input type="hidden" id="ongkir" name="ongkir" value="0">
+            <input type="hidden" id="sub_total" name="sub_total" value="0">
+            <input type="hidden" id="deposit" name="deposit" value="0">
+            <input type="hidden" id="sisa_pembayaran" name="sisa_pembayaran" value="0">
+            <input type="hidden" id="penerima_pembayaran" name="penerima_pembayaran" value="">
+            <input type="hidden" id="status_unit" name="status_unit" value="Order">
 
-                        <!-- WhatsApp -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                <i class="fa-brands fa-whatsapp text-emerald-500 mr-1.5"></i>No. WhatsApp *
-                            </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                    <i class="fa-solid fa-phone text-sm"></i>
-                                </span>
-                                <input type="tel" id="whatsapp" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition font-medium text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="08123456789">
-                            </div>
-                        </div>
+            <!-- Grid Nama Lengkap & WhatsApp -->
+            <div class="grid-user-info">
+                <div class="form-group">
+                    <label>Nama Lengkap *</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-user field-icon"></i>
+                        <input type="text" id="nama" name="nama" required placeholder="Sesuai KTP / SIM">
                     </div>
                 </div>
 
-                <!-- Section 2: Pilihan Unit & Tanggal -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">2</div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Unit Motor & Durasi</h3>
-                    </div>
-
-                    <div class="space-y-4">
-                        <!-- Custom Select Motor Dropdown -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                <i class="fa-solid fa-motorcycle text-slate-400 mr-1.5"></i>Pilih Jenis Motor *
-                            </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                    <i class="fa-solid fa-key text-sm"></i>
-                                </span>
-                                <button type="button" id="customSelectBtn" onclick="toggleCustomSelect()" class="w-full pl-10 pr-10 py-3 bg-slate-50/70 border border-slate-200 rounded-xl text-left focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 flex items-center justify-between transition">
-                                    <span id="selectedMotorText" class="truncate">-- Memuat Daftar Motor --</span>
-                                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200 absolute right-3.5 top-1/2 -translate-y-1/2" id="selectArrow"></i>
-                                </button>
-
-                                <!-- Options Container -->
-                                <div id="customSelectDropdown" class="hidden absolute left-0 right-0 top-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 max-h-60 overflow-y-auto custom-scrollbar p-2 space-y-1">
-                                    <!-- Dynamic options inserted here -->
-                                </div>
-                            </div>
-                            <input type="hidden" id="jenisMotor" required>
-                        </div>
-
-                        <!-- Datepicker Range & Quantity -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <!-- Rentang Tanggal -->
-                            <div class="sm:col-span-2">
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                    <i class="fa-solid fa-calendar-days text-slate-400 mr-1.5"></i>Rentang Tanggal Sewa *
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                        <i class="fa-solid fa-calendar text-sm"></i>
-                                    </span>
-                                    <input type="text" id="tanggalSewa" required class="w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-medium text-slate-800 cursor-pointer placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Pilih Tanggal Mulai - Selesai">
-                                </div>
-                            </div>
-
-                            <!-- Durasi -->
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                    <i class="fa-solid fa-hourglass-half text-slate-400 mr-1.5"></i>Durasi
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-600">
-                                        <i class="fa-solid fa-clock text-sm"></i>
-                                    </span>
-                                    <input type="text" id="durasi" readonly class="w-full pl-10 pr-4 py-3 bg-blue-50/50 border border-blue-200/80 rounded-xl text-blue-700 font-bold text-sm text-center" value="1 Hari">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Qty -->
-                        <div class="w-full sm:w-1/2">
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                                <i class="fa-solid fa-cubes text-slate-400 mr-1.5"></i>Jumlah Unit *
-                            </label>
-                            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50/70">
-                                <button type="button" onclick="adjustQty(-1)" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold transition">
-                                    <i class="fa-solid fa-minus text-xs"></i>
-                                </button>
-                                <input type="number" id="qty" min="1" value="1" readonly class="w-full text-center bg-transparent font-bold text-sm text-slate-800 outline-none">
-                                <button type="button" onclick="adjustQty(1)" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold transition">
-                                    <i class="fa-solid fa-plus text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp *</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-brands fa-whatsapp field-icon"></i>
+                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="08123456789">
                     </div>
                 </div>
+            </div>
 
-                <!-- Section 3: Lokasi Penyerahan & Pengembalian -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-                        <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">3</div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Penyerahan & Pengembalian</h3>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Field Penyerahan Unit -->
-                        <div class="space-y-3 bg-slate-50/60 p-4 rounded-2xl border border-slate-200/70">
-                            <!-- Text Area Alamat Penyerahan -->
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                                    <i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>Alamat Penyerahan *
-                                </label>
-                                <div class="relative">
-                                    <textarea id="alamatAntar" rows="3" required class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-slate-800 font-medium transition placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Alamat lengkap / Nama Hotel / Bandara / Stasiun"></textarea>
-                                    <span class="absolute top-3 left-3 text-slate-400 pointer-events-none">
-                                        <i class="fa-solid fa-map-pin text-xs"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Custom Select Jam Penyerahan -->
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                                    <i class="fa-solid fa-clock text-slate-400 mr-1"></i>Jam Penyerahan *
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 z-10">
-                                        <i class="fa-regular fa-clock text-xs"></i>
-                                    </span>
-                                    <button type="button" id="timeAntarBtn" onclick="toggleTimeSelect('Antar')" class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-200 rounded-xl text-left text-xs font-semibold text-slate-700 flex items-center justify-between outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition relative">
-                                        <span id="selectedAntarTimeText" class="truncate">09:00 WITA</span>
-                                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200 absolute right-3 top-1/2 -translate-y-1/2" id="timeAntarArrow"></i>
-                                    </button>
-
-                                    <!-- Dropdown Time Grid Custom -->
-                                    <div id="timeAntarDropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 p-2 grid grid-cols-3 gap-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                                        <!-- Time slots populated via JS -->
-                                    </div>
-                                </div>
-                                <input type="hidden" id="waktuAntar" value="09:00 WITA">
-                            </div>
-                        </div>
-
-                        <!-- Field Pengembalian Unit -->
-                        <div class="space-y-3 bg-slate-50/60 p-4 rounded-2xl border border-slate-200/70">
-                            <!-- Text Area Alamat Pengembalian -->
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                                    <i class="fa-solid fa-location-arrow text-slate-400 mr-1"></i>Alamat Pengembalian *
-                                </label>
-                                <div class="relative">
-                                    <textarea id="alamatKembali" rows="3" required class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-slate-800 font-medium transition placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Alamat pengembalian unit / Hotel / Bandara"></textarea>
-                                    <span class="absolute top-3 left-3 text-slate-400 pointer-events-none">
-                                        <i class="fa-solid fa-map-location-dot text-xs"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Custom Select Jam Pengembalian -->
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                                    <i class="fa-solid fa-clock text-slate-400 mr-1"></i>Jam Pengembalian *
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 z-10">
-                                        <i class="fa-regular fa-clock text-xs"></i>
-                                    </span>
-                                    <button type="button" id="timeKembaliBtn" onclick="toggleTimeSelect('Kembali')" class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-200 rounded-xl text-left text-xs font-semibold text-slate-700 flex items-center justify-between outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition relative">
-                                        <span id="selectedKembaliTimeText" class="truncate">09:00 WITA</span>
-                                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200 absolute right-3 top-1/2 -translate-y-1/2" id="timeKembaliArrow"></i>
-                                    </button>
-
-                                    <!-- Dropdown Time Grid Custom -->
-                                    <div id="timeKembaliDropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl z-30 p-2 grid grid-cols-3 gap-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                                        <!-- Time slots populated via JS -->
-                                    </div>
-                                </div>
-                                <input type="hidden" id="waktuKembali" value="09:00 WITA">
-                            </div>
-                        </div>
+            <!-- Tanggal Sewa & Durasi Grid -->
+            <div class="grid-date-duration">
+                <div class="form-group">
+                    <label>Tanggal Sewa *</label>
+                    <div class="input-icon-wrapper date-wrapper">
+                        <i class="fa-solid fa-calendar-days field-icon"></i>
+                        <input type="text" id="tanggal_sewa" name="tanggal_sewa" required placeholder="Pilih Tanggal Mulai - Selesai">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Durasi</label>
+                    <input type="text" id="durasi_label" readonly value="2 Hari" style="text-align: center; font-weight: 700 !important; color: #2563eb !important; width: 100%;">
+                    <input type="hidden" id="durasi" name="durasi" value="2">
+                </div>
+            </div>
 
-                <!-- Catatan Tambahan -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                        <i class="fa-solid fa-note-sticky text-slate-400 mr-1.5"></i>Catatan Tambahan (Opsional)
-                    </label>
-                    <div class="relative">
-                        <textarea id="pesan" rows="2" class="w-full pl-9 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm transition text-slate-800 placeholder:text-slate-400 placeholder:text-xs placeholder:font-normal" placeholder="Contoh: Helm 2 pcs ukuran L, jas hujan..."></textarea>
-                        <span class="absolute top-3.5 left-3 text-slate-400 pointer-events-none">
-                            <i class="fa-solid fa-pen text-xs"></i>
-                        </span>
+            <!-- Pemilihan Motor -->
+            <div class="form-group">
+                <label>Pilih Motor & Jumlah *</label>
+                <div id="motorContainer">
+                    <!-- Dynamic Rows Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Penyerahan -->
+            <div class="grid-address-time">
+                <div class="form-group">
+                    <label>Alamat Penyerahan *</label>
+                    <div class="input-icon-wrapper textarea-wrapper">
+                        <i class="fa-solid fa-location-dot field-icon"></i>
+                        <textarea id="alamat_antar" name="alamat_antar" required placeholder="Hotel / Bandara / Alamat"></textarea>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Jam Penyerahan</label>
+                    <div class="input-icon-wrapper select-wrapper">
+                        <i class="fa-solid fa-clock field-icon"></i>
+                        <select id="waktu_antar" name="waktu_antar" class="time-select" onchange="calculateDuration()"></select>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Submit Button: Icon + Kirim Pesan -->
-                <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-4 px-6 rounded-2xl transition duration-200 shadow-md hover:shadow-lg hover:shadow-emerald-600/20 flex items-center justify-center gap-2.5 text-base">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Kirim Pesan</span>
+            <!-- Pengembalian -->
+            <div class="grid-address-time">
+                <div class="form-group">
+                    <label>Alamat Pengembalian *</label>
+                    <div class="input-icon-wrapper textarea-wrapper">
+                        <i class="fa-solid fa-location-arrow field-icon"></i>
+                        <textarea id="alamat_kembali" name="alamat_kembali" required placeholder="Alamat Pengembalian"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Jam Pengembalian</label>
+                    <div class="input-icon-wrapper select-wrapper">
+                        <i class="fa-solid fa-clock field-icon"></i>
+                        <select id="waktu_kembali" name="waktu_kembali" class="time-select" onchange="calculateDuration()"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catatan Tambahan -->
+            <div class="form-group">
+                <label>Catatan Tambahan (Opsional)</label>
+                <div class="input-icon-wrapper textarea-wrapper">
+                    <i class="fa-solid fa-note-sticky field-icon"></i>
+                    <textarea id="pesan_tambahan" name="pesan_tambahan" class="notes-textarea" placeholder="Jumlah helm, jas hujan, dll."></textarea>
+                </div>
+            </div>
+
+            <!-- Grid 2 Tombol di Bagian Bawah -->
+            <div class="bottom-action-grid">
+                <button type="button" class="btn-check-price" onclick="openPriceModal()">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Cek Harga</span>
                 </button>
-            </form>
-        </div>
-
-    </div>
-
-    <!-- Modal Success / Auto WhatsApp Redirect -->
-    <div id="successModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200 text-center relative border border-slate-100">
-            
-            <div>
-                <span class="bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-blue-100">
-                    Kode Booking: <span id="modalBookingCode" class="text-blue-900">BKR-000</span>
-                </span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2.5">Pesanan Siap Dikirim!</h3>
-                <p class="text-slate-500 text-xs mt-1 leading-relaxed">
-                    Klik tombol di bawah untuk meneruskan detail pesanan ke WhatsApp Admin Bikarent.
-                </p>
-            </div>
-
-            <!-- Preview Pesan WhatsApp Auto Response -->
-            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-left text-xs text-slate-700 space-y-1 font-mono overflow-x-auto max-h-40 custom-scrollbar">
-                <p class="font-bold text-slate-800 font-sans text-[11px] uppercase tracking-wider">Format Pesan WhatsApp:</p>
-                <div id="modalWaPreview" class="whitespace-pre-wrap text-[11px] leading-relaxed text-slate-600"></div>
-            </div>
-
-            <div class="space-y-2 pt-1">
-                <a id="modalWaBtn" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 transition text-sm">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Kirim Pesan</span>
-                </a>
-                <button type="button" onclick="closeModal()" class="w-full py-2 text-xs text-slate-400 hover:text-slate-600 font-semibold">
-                    Tutup
+                <button type="submit" class="whatsapp-submit-btn">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i>
+                    <span>Booking Motor</span>
                 </button>
             </div>
 
+        </form>
+    </div>
+
+    <!-- POP-UP MODAL HARGA -->
+    <div class="price-modal-overlay" id="priceModalOverlay" onclick="closePriceModalOnOutside(event)">
+        <div class="price-modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fa-solid fa-receipt" style="color: #2563eb;"></i>
+                    <span>Rincian Estimasi Biaya</span>
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closePriceModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="estimation-card">
+                <div id="tierBadgeContainer">
+                    <span class="tier-badge" id="modalTierBadge">Paket Harian (1-5 Hari)</span>
+                </div>
+                <div class="estimation-breakdown" id="modalBreakdownContainer">
+                    <div style="color: #94a3b8; font-style: italic;">Pilih unit motor untuk melihat rincian...</div>
+                </div>
+                <div class="total-row">
+                    <div style="font-size: 14px; font-weight: 700; color: #1e40af;">Total Estimasi</div>
+                    <div class="value-total" id="modalGrandTotalDisplay">Rp 0</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="py-6 text-center text-xs text-slate-400">
-        &copy; 2026 Bikarent Management System. All rights reserved.
-    </footer>
+    <!-- Notification Toast -->
+    <div id="toast" class="validation-toast">Mohon lengkapi pilihan motor terlebih dahulu!</div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
 
     <script>
-        // CONFIGURATION
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEBay3jzDbYw7iUdlG2Jt3oIXgT4r61_fX9BMHK1gdd6BxPJOZfygNa_MzChfVf_6uHw/exec";
-        const ADMIN_WHATSAPP = "6281999009090";
-        const COMPANY_NAME = "Bikarent";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEBay3jzDbYw7iUdlG2Jt3oIXgT4r61_fX9BMHK1gdd6BxPJOZfygNa_MzChfVf_6uHw/exec"; 
+        const ADMIN_WA = "6281999009090";
 
-        const mockMotorList = [
-            "Honda Vario 125cc",
-            "Honda Scoopy 110cc",
-            "Yamaha NMAX 155cc",
-            "Honda PCX 160cc",
-            "Yamaha Aerox 155cc",
-            "Honda Beat 110cc",
-            "Vespa LX 125cc"
-        ];
-
-        const timeSlots = [
-            "08:00 WITA", "09:00 WITA", "10:00 WITA",
-            "11:00 WITA", "12:00 WITA", "13:00 WITA",
-            "14:00 WITA", "15:00 WITA", "16:00 WITA",
-            "17:00 WITA", "18:00 WITA", "19:00 WITA", "20:00 WITA"
-        ];
-
+        let priceListData = [];
+        let durasiHari = 2;
+        let baseCalendarDays = 2;
         let selectedStartDate = new Date();
         let selectedEndDate = new Date();
-        let durasiHari = 1;
+        let flatpickrInstance = null;
 
-        // Fetch Motor List
-        async function fetchMotorList() {
-            try {
-                const response = await fetch(SCRIPT_URL);
-                const resData = await response.json();
-
-                if (resData.status === "success" && Array.isArray(resData.data) && resData.data.length > 0) {
-                    populateCustomSelect(resData.data);
-                } else {
-                    populateCustomSelect(mockMotorList);
-                }
-            } catch (error) {
-                populateCustomSelect(mockMotorList);
-            }
-        }
-
-        // Custom Motor Select
-        function populateCustomSelect(items) {
-            const container = document.getElementById('customSelectDropdown');
-            container.innerHTML = '';
-
-            items.forEach((item) => {
-                const optionEl = document.createElement('div');
-                optionEl.className = "px-3 py-2.5 hover:bg-blue-50 rounded-xl text-xs font-semibold text-slate-700 cursor-pointer flex items-center justify-between transition";
-                optionEl.innerHTML = `
-                    <span>${item}</span>
-                    <i class="fa-solid fa-check text-blue-600 hidden select-check text-xs"></i>
-                `;
-                optionEl.onclick = () => selectMotor(item, optionEl);
-                container.appendChild(optionEl);
-            });
-
-            if(items.length > 0) {
-                selectMotor(items[0], container.children[0]);
-            }
-        }
-
-        function toggleCustomSelect() {
-            const dropdown = document.getElementById('customSelectDropdown');
-            const arrow = document.getElementById('selectArrow');
-            dropdown.classList.toggle('hidden');
-            arrow.classList.toggle('rotate-180');
-        }
-
-        function selectMotor(value, element) {
-            document.getElementById('selectedMotorText').textContent = value;
-            document.getElementById('jenisMotor').value = value;
-
-            document.querySelectorAll('#customSelectDropdown > div').forEach(el => {
-                el.classList.remove('bg-blue-50', 'text-blue-700');
-                el.querySelector('.select-check').classList.add('hidden');
-            });
-            element.classList.add('bg-blue-50', 'text-blue-700');
-            element.querySelector('.select-check').classList.remove('hidden');
-
-            document.getElementById('customSelectDropdown').classList.add('hidden');
-            document.getElementById('selectArrow').classList.remove('rotate-180');
-        }
-
-        // Custom Time Select Pickers (Penyerahan & Pengembalian)
-        function initTimeSlots() {
-            ['Antar', 'Kembali'].forEach(type => {
-                const container = document.getElementById(`time${type}Dropdown`);
-                container.innerHTML = '';
-
-                timeSlots.forEach(time => {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = `px-2 py-1.5 rounded-lg text-[11px] font-semibold border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition text-center text-slate-600 ${time === '09:00 WITA' ? 'bg-blue-50 text-blue-600 border-blue-200' : ''}`;
-                    btn.textContent = time;
-                    btn.onclick = () => selectTimeSlot(type, time, btn);
-                    container.appendChild(btn);
-                });
-            });
-        }
-
-        function toggleTimeSelect(type) {
-            const dropdown = document.getElementById(`time${type}Dropdown`);
-            const arrow = document.getElementById(`time${type}Arrow`);
-            
-            // Close other dropdowns
-            const otherType = type === 'Antar' ? 'Kembali' : 'Antar';
-            document.getElementById(`time${otherType}Dropdown`).classList.add('hidden');
-            document.getElementById(`time${otherType}Arrow`).classList.remove('rotate-180');
-
-            dropdown.classList.toggle('hidden');
-            arrow.classList.toggle('rotate-180');
-        }
-
-        function selectTimeSlot(type, time, element) {
-            document.getElementById(`selected${type}TimeText`).textContent = time;
-            document.getElementById(`waktu${type}`).value = time;
-
-            const container = document.getElementById(`time${type}Dropdown`);
-            container.querySelectorAll('button').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
-            });
-            element.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200');
-
-            // Auto-sync return time if delivery time is selected and return hasn't been manually interacted
-            if (type === 'Antar') {
-                document.getElementById('selectedKembaliTimeText').textContent = time;
-                document.getElementById('waktuKembali').value = time;
-                const kembaliContainer = document.getElementById('timeKembaliDropdown');
-                kembaliContainer.querySelectorAll('button').forEach(btn => {
-                    if (btn.textContent === time) {
-                        btn.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200');
-                    } else {
-                        btn.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
-                    }
-                });
-            }
-
-            container.classList.add('hidden');
-            document.getElementById(`time${type}Arrow`).classList.remove('rotate-180');
-        }
-
-        // Quantity Adjuster
-        function adjustQty(amount) {
-            const qtyInput = document.getElementById('qty');
-            let current = parseInt(qtyInput.value) || 1;
-            current = Math.max(1, current + amount);
-            qtyInput.value = current;
-        }
-
-        // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
-            fetchMotorList();
-            initTimeSlots();
+            populateTimeOptions();
+            initFlatpickr();
+            fetchPriceList();
+            setupAutoFocusFlow();
 
-            flatpickr("#tanggalSewa", {
+            document.getElementById('alamat_antar').addEventListener('input', function() {
+                document.getElementById('alamat_kembali').value = this.value;
+            });
+
+            document.getElementById('waktu_antar').addEventListener('change', function() {
+                document.getElementById('waktu_kembali').value = this.value;
+                calculateDuration();
+            });
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Auto focus sequence flow
+        function setupAutoFocusFlow() {
+            const namaInput = document.getElementById('nama');
+            const waInput = document.getElementById('whatsapp');
+            const tglInput = document.getElementById('tanggal_sewa');
+            const alamatAntarInput = document.getElementById('alamat_antar');
+            const jamAntarSelect = document.getElementById('waktu_antar');
+            const alamatKembaliInput = document.getElementById('alamat_kembali');
+
+            namaInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (namaInput.value.trim() !== '') waInput.focus();
+                }
+            });
+
+            waInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (waInput.value.trim() !== '' && flatpickrInstance) {
+                        flatpickrInstance.open();
+                    }
+                }
+            });
+
+            alamatAntarInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (alamatAntarInput.value.trim() !== '') jamAntarSelect.focus();
+                }
+            });
+
+            alamatKembaliInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (alamatKembaliInput.value.trim() !== '') document.getElementById('pesan_tambahan').focus();
+                }
+            });
+        }
+
+        function populateTimeOptions() {
+            const selects = document.querySelectorAll('.time-select');
+            let optionsHTML = '';
+
+            for (let hour = 8; hour <= 22; hour++) {
+                const hourStr = hour < 10 ? '0' + hour : '' + hour;
+                optionsHTML += `<option value="${hourStr}:00">${hourStr}:00 WITA</option>`;
+                if (hour < 22) {
+                    optionsHTML += `<option value="${hourStr}:30">${hourStr}:30 WITA</option>`;
+                }
+            }
+
+            selects.forEach(select => {
+                select.innerHTML = optionsHTML;
+                select.value = "09:00";
+            });
+        }
+
+        function initFlatpickr() {
+            const startDate = new Date();
+            const endDate = new Date();
+            endDate.setDate(startDate.getDate() + 2);
+
+            selectedStartDate = startDate;
+            selectedEndDate = endDate;
+
+            flatpickrInstance = flatpickr("#tanggal_sewa", {
                 mode: "range",
-                showMonths: 1,
                 dateFormat: "d M Y",
                 minDate: "today",
-                defaultDate: ["today", "today"],
-                prevArrow: "&laquo;",
-                nextArrow: "&raquo;",
-                locale: {
-                    firstDayOfWeek: 0, // Minggu (Su Mo Tu We Th Fr Sa)
-                    weekdays: {
-                        shorthand: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                        longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-                    },
-                    months: {
-                        shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-                        longhand: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-                    }
-                },
+                defaultDate: [startDate, endDate],
+                locale: "id",
                 onChange: function(selectedDates) {
                     if (selectedDates.length === 2) {
                         selectedStartDate = selectedDates[0];
                         selectedEndDate = selectedDates[1];
-                        const diffTime = Math.abs(selectedEndDate - selectedStartDate);
-                        durasiHari = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                        document.getElementById('durasi').value = `${durasiHari} Hari`;
-                    } else if (selectedDates.length === 1) {
-                        selectedStartDate = selectedDates[0];
-                        selectedEndDate = selectedDates[0];
-                        durasiHari = 1;
-                        document.getElementById('durasi').value = `1 Hari`;
+                        
+                        const diffTime = Math.abs(selectedEndDate.getTime() - selectedStartDate.getTime());
+                        baseCalendarDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                    } else {
+                        baseCalendarDays = 1;
+                    }
+                    calculateDuration();
+                },
+                onDayCreate: function(dObj, dStr, fp, dayElem) {
+                    dayElem.addEventListener('mouseenter', function() {
+                        if (fp.selectedDates.length === 1 && !dayElem.classList.contains('disabled')) {
+                            const hoverDate = dayElem.dateObj;
+                            const firstDate = fp.selectedDates[0];
+                            if (hoverDate >= firstDate) {
+                                const diffTime = Math.abs(hoverDate.getTime() - firstDate.getTime());
+                                const days = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                                const actualDays = days < 2 ? 2 : days;
+                                
+                                let tooltip = dayElem.querySelector('.flatpickr-day-tooltip');
+                                if (!tooltip) {
+                                    tooltip = document.createElement('span');
+                                    tooltip.className = 'flatpickr-day-tooltip';
+                                    dayElem.appendChild(tooltip);
+                                }
+                                tooltip.textContent = `${actualDays} Hari`;
+                            }
+                        }
+                    });
+
+                    dayElem.addEventListener('mouseleave', function() {
+                        const tooltip = dayElem.querySelector('.flatpickr-day-tooltip');
+                        if (tooltip) tooltip.remove();
+                    });
+                },
+                onClose: function(selectedDates) {
+                    if (selectedDates.length === 2) {
+                        // Auto focus to first motor selection field after date choice
+                        setTimeout(() => {
+                            const firstMotorSelect = document.querySelector('.motor-select');
+                            if (firstMotorSelect) firstMotorSelect.focus();
+                        }, 100);
                     }
                 }
             });
 
-            // Sync Alamat Penyerahan & Pengembalian Textarea automatically
-            document.getElementById('alamatAntar').addEventListener('input', function() {
-                document.getElementById('alamatKembali').value = this.value;
-            });
-        });
+            const diffTime = Math.abs(selectedEndDate.getTime() - selectedStartDate.getTime());
+            baseCalendarDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+            calculateDuration();
+        }
 
-        // Close dropdowns on outside click
-        window.addEventListener('click', function(e) {
-            const btn = document.getElementById('customSelectBtn');
-            const dropdown = document.getElementById('customSelectDropdown');
-            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.add('hidden');
-                document.getElementById('selectArrow').classList.remove('rotate-180');
+        function calculateDuration() {
+            let totalDays = baseCalendarDays;
+
+            if (totalDays < 2) {
+                totalDays = 2;
             }
 
-            ['Antar', 'Kembali'].forEach(type => {
-                const tBtn = document.getElementById(`time${type}Btn`);
-                const tDropdown = document.getElementById(`time${type}Dropdown`);
-                if (tBtn && tDropdown && !tBtn.contains(e.target) && !tDropdown.contains(e.target)) {
-                    tDropdown.classList.add('hidden');
-                    document.getElementById(`time${type}Arrow`).classList.remove('rotate-180');
+            const jamAntarVal = document.getElementById('waktu_antar').value || "09:00";
+            const jamKembaliVal = document.getElementById('waktu_kembali').value || "09:00";
+
+            const [h1, m1] = jamAntarVal.split(':').map(Number);
+            const [h2, m2] = jamKembaliVal.split(':').map(Number);
+
+            const totalMinsAntar = h1 * 60 + m1;
+            const totalMinsKembali = h2 * 60 + m2;
+            const diffMinutes = totalMinsKembali - totalMinsAntar;
+
+            if (diffMinutes > 120) {
+                totalDays += 1;
+            }
+
+            durasiHari = totalDays;
+
+            document.getElementById('durasi_label').value = `${durasiHari} Hari`;
+            document.getElementById('durasi').value = durasiHari;
+
+            calculateTotal();
+        }
+
+        function fetchPriceList() {
+            fetch(`${SCRIPT_URL}?action=getList`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status === 'success' && res.data && res.data.length > 0) {
+                        priceListData = res.data;
+                    } else {
+                        useFallbackPriceList();
+                    }
+                    renderInitialMotorRow();
+                })
+                .catch(err => {
+                    useFallbackPriceList();
+                    renderInitialMotorRow();
+                });
+        }
+
+        function useFallbackPriceList() {
+            priceListData = [
+                { nama: "Honda Beat", p1_5: 70000, p6_10: 60000, p11_14: 50000, p30: 45000 },
+                { nama: "Honda Scoopy FI", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
+                { nama: "Honda Scoopy NEW", p1_5: 80000, p6_10: 75000, p11_14: 65000, p30: 50000 },
+                { nama: "Yamaha Fazzio", p1_5: 85000, p6_10: 80000, p11_14: 70000, p30: 60000 },
+                { nama: "Yamaha Lexi", p1_5: 110000, p6_10: 100000, p11_14: 90000, p30: 80000 },
+                { nama: "Honda Vario 110", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
+                { nama: "Honda Vario 125", p1_5: 90000, p6_10: 85000, p11_14: 80000, p30: 65000 },
+                { nama: "Honda Vario 160", p1_5: 100000, p6_10: 90000, p11_14: 85000, p30: 70000 },
+                { nama: "Honda PCX", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
+                { nama: "Yamaha N Max", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
+                { nama: "Yamaha N Max (Turbo)", p1_5: 170000, p6_10: 140000, p11_14: 120000, p30: 100000 }
+            ];
+        }
+
+        function renderInitialMotorRow() {
+            const container = document.getElementById('motorContainer');
+            container.innerHTML = '';
+            addMotorRow(true);
+        }
+
+        function getOptionsHTML() {
+            let options = `<option value="">-- Pilih Motor --</option>`;
+            priceListData.forEach((item, index) => {
+                options += `<option value="${item.nama}" data-index="${index}">${item.nama}</option>`;
+            });
+            return options;
+        }
+
+        // Validate if (+) button can add a new motor row
+        function addMotorRow(isFirst = false) {
+            if (!isFirst) {
+                const motorSelects = document.querySelectorAll('.motor-select');
+                const lastSelect = motorSelects[motorSelects.length - 1];
+                if (!lastSelect || lastSelect.value === "") {
+                    showToast("Pilih tipe motor terlebih dahulu sebelum menambah unit baru!");
+                    lastSelect.focus();
+                    return;
+                }
+            }
+
+            const container = document.getElementById('motorContainer');
+            const card = document.createElement('div');
+            card.className = 'motor-row-card';
+            
+            const btnHTML = isFirst 
+                ? `<button type="button" class="btn-action btn-add" onclick="addMotorRow(false)"><i class="fa-solid fa-plus"></i></button>`
+                : `<button type="button" class="btn-action btn-remove" onclick="removeMotorRow(this)"><i class="fa-solid fa-trash"></i></button>`;
+
+            card.innerHTML = `
+                <div class="motor-row">
+                    <div class="motor-select-col">
+                        <div class="input-icon-wrapper select-wrapper">
+                            <i class="fa-solid fa-motorcycle field-icon"></i>
+                            <select name="jenis_motor[]" class="motor-select" onchange="onMotorSelected(this)" required>
+                                ${getOptionsHTML()}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="motor-qty-col">
+                        <select name="qty[]" class="motor-qty" onchange="calculateTotal()">
+                            <option value="1">1 Unit</option>
+                            <option value="2">2 Unit</option>
+                            <option value="3">3 Unit</option>
+                            <option value="4">4 Unit</option>
+                            <option value="5">5 Unit</option>
+                        </select>
+                    </div>
+                    <div class="motor-btn-col">
+                        ${btnHTML}
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+            calculateTotal();
+        }
+
+        function onMotorSelected(selectElem) {
+            calculateTotal();
+            if (selectElem.value !== '') {
+                // Focus to delivery address field if selection complete
+                document.getElementById('alamat_antar').focus();
+            }
+        }
+
+        function removeMotorRow(btn) {
+            btn.closest('.motor-row-card').remove();
+            calculateTotal();
+        }
+
+        function getDailyRate(item, days) {
+            if (!item) return 0;
+            if (days >= 30) return item.p30 || item.p11_14 || item.p6_10 || item.p1_5;
+            if (days >= 11) return item.p11_14 || item.p6_10 || item.p1_5;
+            if (days >= 6) return item.p6_10 || item.p1_5;
+            return item.p1_5;
+        }
+
+        function getTierName(days) {
+            if (days >= 30) return "Paket Bulanan (≥ 30 Hari)";
+            if (days >= 11) return "Paket Hemat (11-14 Hari)";
+            if (days >= 6) return "Paket Mingguan (6-10 Hari)";
+            return "Paket Harian (1-5 Hari)";
+        }
+
+        function calculateTotal() {
+            let grandTotal = 0;
+            const cards = document.querySelectorAll('.motor-row-card');
+            const modalBreakdownContainer = document.getElementById('modalBreakdownContainer');
+            const modalTierBadge = document.getElementById('modalTierBadge');
+            
+            modalTierBadge.textContent = getTierName(durasiHari);
+            modalBreakdownContainer.innerHTML = '';
+
+            let hasValidItem = false;
+
+            cards.forEach(card => {
+                const select = card.querySelector('.motor-select');
+                const qtyInput = card.querySelector('.motor-qty');
+
+                const selectedOption = select.options[select.selectedIndex];
+                const itemIndex = selectedOption ? selectedOption.getAttribute('data-index') : null;
+                const itemData = priceListData[itemIndex];
+
+                if (itemData) {
+                    hasValidItem = true;
+                    const dailyRate = getDailyRate(itemData, durasiHari);
+                    const qty = parseInt(qtyInput.value) || 1;
+                    const rowSubtotal = dailyRate * qty * durasiHari;
+
+                    const itemRow = document.createElement('div');
+                    itemRow.className = 'breakdown-item';
+                    itemRow.innerHTML = `
+                        <span>• ${qty} Unit ${itemData.nama} × ${durasiHari} Hari</span>
+                        <span style="font-weight: 600;">Rp ${rowSubtotal.toLocaleString('id-ID')}</span>
+                    `;
+                    
+                    const subDetailRow = document.createElement('div');
+                    subDetailRow.className = 'breakdown-item-sub';
+                    subDetailRow.innerHTML = `Tarif paket: Rp ${dailyRate.toLocaleString('id-ID')}/hari/unit`;
+
+                    modalBreakdownContainer.appendChild(itemRow);
+                    modalBreakdownContainer.appendChild(subDetailRow);
+                    grandTotal += rowSubtotal;
                 }
             });
-        });
 
-        // Submit Form Handler
-        function handleFormSubmit(e) {
-            e.preventDefault();
-
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let randomStr = '';
-            for (let i = 0; i < 3; i++) {
-                randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+            if (!hasValidItem) {
+                const emptyMsg = `<div style="color: #94a3b8; font-style: italic;">Pilih unit motor untuk melihat rincian...</div>`;
+                modalBreakdownContainer.innerHTML = emptyMsg;
             }
-            const bookingCode = `BKR-${randomStr}`;
 
-            const formData = {
-                bookingCode: bookingCode,
-                nama: document.getElementById('nama').value,
-                whatsapp: document.getElementById('whatsapp').value,
+            const formattedGrandTotal = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+            document.getElementById('modalGrandTotalDisplay').textContent = formattedGrandTotal;
+            document.getElementById('sub_total').value = grandTotal;
+        }
+
+        function openPriceModal() {
+            document.getElementById('priceModalOverlay').classList.add('active');
+        }
+
+        function closePriceModal() {
+            document.getElementById('priceModalOverlay').classList.remove('active');
+        }
+
+        function closePriceModalOnOutside(event) {
+            if (event.target.id === 'priceModalOverlay') {
+                closePriceModal();
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const randomCode = 'BKR-' + Math.random().toString(36).substring(2, 5).toUpperCase();
+
+            let listMotorStr = "";
+            const cards = document.querySelectorAll('.motor-row-card');
+            cards.forEach(card => {
+                const select = card.querySelector('.motor-select');
+                const qty = card.querySelector('.motor-qty').value;
+                if(select.value) {
+                    listMotorStr += `- ${select.value} (${qty} Unit)\n`;
+                }
+            });
+
+            const nama = document.getElementById('nama').value;
+            const wa = document.getElementById('whatsapp').value;
+            const tglSewa = document.getElementById('tanggal_sewa').value;
+            const durasiNum = document.getElementById('durasi').value;
+            const durasiStr = `${durasiNum} Hari`;
+            const alamatAntar = document.getElementById('alamat_antar').value;
+            const jamAntar = document.getElementById('waktu_antar').value;
+            const alamatKembali = document.getElementById('alamat_kembali').value;
+            const jamKembali = document.getElementById('waktu_kembali').value;
+            const pesan = document.getElementById('pesan_tambahan').value || '-';
+            const totalBayar = document.getElementById('modalGrandTotalDisplay').textContent;
+            const tierName = getTierName(durasiHari);
+
+            const waText = 
+`*RESERVASI SEWA MOTOR - BIKARENT*
+----------------------------------------
+*Kode Booking:* ${randomCode}
+*Nama:* ${nama}
+*WhatsApp:* ${wa}
+
+*Unit Motor:*
+${listMotorStr}
+*Paket:* ${tierName}
+*Tanggal:* ${tglSewa} (${durasiStr})
+*Penyerahan:* ${alamatAntar} (${jamAntar} WITA)
+*Pengembalian:* ${alamatKembali} (${jamKembali} WITA)
+*Catatan:* ${pesan}
+
+*Estimasi Total:* ${totalBayar}
+----------------------------------------
+Halo Admin Bikarent, mohon konfirmasi untuk pesanan saya di atas. Terima kasih!`;
+
+            const payload = {
+                bookingCode: randomCode,
+                nama: nama,
+                whatsapp: wa,
                 tanggalMulai: selectedStartDate.toISOString(),
                 tanggalSelesai: selectedEndDate.toISOString(),
-                durasi: `${durasiHari} Hari`,
-                jenisMotor: document.getElementById('jenisMotor').value,
-                qty: document.getElementById('qty').value,
-                alamatAntar: document.getElementById('alamatAntar').value,
-                waktuAntar: document.getElementById('waktuAntar').value,
-                alamatKembali: document.getElementById('alamatKembali').value,
-                waktuKembali: document.getElementById('waktuKembali').value,
-                pesan: document.getElementById('pesan').value || '-'
+                durasi: durasiNum,
+                jenisMotor: listMotorStr.replace(/\n/g, ', '),
+                alamatAntar: alamatAntar,
+                waktuAntar: jamAntar,
+                alamatKembali: alamatKembali,
+                waktuKembali: jamKembali,
+                pesan: pesan,
+                subTotal: document.getElementById('sub_total').value
             };
-
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-            const formatTglShort = (d) => `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-
-            const waMessage = 
-`*RESERVASI SEWA MOTOR - ${COMPANY_NAME.toUpperCase()}*
-----------------------------------------
-*Kode Booking:* ${formData.bookingCode}
-*Nama:* ${formData.nama}
-*WhatsApp:* ${formData.whatsapp}
-*Unit:* ${formData.jenisMotor} (${formData.qty} Unit)
-*Tanggal:* ${formatTglShort(selectedStartDate)} - ${formatTglShort(selectedEndDate)} (${formData.durasi})
-*Penyerahan Unit:* ${formData.alamatAntar} (${formData.waktuAntar})
-*Pengembalian Unit:* ${formData.alamatKembali} (${formData.waktuKembali})
-*Catatan:* ${formData.pesan}
-----------------------------------------
-Halo Admin ${COMPANY_NAME}, mohon konfirmasi ketersediaan unit untuk pesanan ini. Terima kasih!`;
-
-            const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(waMessage)}`;
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            }).catch(err => console.log('Apps Script logging...'));
+                body: JSON.stringify(payload)
+            }).catch(e => console.log('Saved to Google Sheets'));
 
-            document.getElementById('modalBookingCode').textContent = formData.bookingCode;
-            document.getElementById('modalWaPreview').textContent = waMessage;
-            document.getElementById('modalWaBtn').href = waUrl;
-            document.getElementById('successModal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('bookingForm').reset();
-            document.getElementById('durasi').value = '1 Hari';
+            const waUrl = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(waText)}`;
+            window.open(waUrl, '_blank');
         }
     </script>
 </body>
