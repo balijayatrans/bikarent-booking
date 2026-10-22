@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <base target="_top">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Booking Motor - Bikarent</title>
+    <title>Form Sewa Motor - Bikarent</title>
     <!-- Google Fonts Inter & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
             text-align: center;
             margin: -24px -24px 20px -24px;
             padding: 22px 24px 0px 24px;
-            background: linear-gradient(135deg, #f1c10f 0%, #f39c12 100%);
+            background: #f1c10f;
             width: calc(100% + 48px);
             box-sizing: border-box;
             position: relative;
@@ -127,7 +127,7 @@
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 13px !important;
-            font-weight: 500 !important;
+            font-weight: 400 !important;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
             transition: all 0.2s ease;
             background-color: #f8fafc;
@@ -184,31 +184,21 @@
             gap: 5px;
             margin-bottom: 2px;
         }
-
-        .grid-user-info > * {
-            flex: 1;
-        }
+        .grid-user-info > * { flex: 1; }
 
         .grid-date-duration {
             display: flex;
             gap: 5px;
             margin-bottom: 14px;
         }
-
-        .grid-date-duration > *:nth-child(1) { 
-            flex: 1;
-        }
-        .grid-date-duration > *:nth-child(2) { 
-            width: 140px;
-            flex-shrink: 0; 
-        }
+        .grid-date-duration > *:nth-child(1) { flex: 1; }
+        .grid-date-duration > *:nth-child(2) { width: 140px; flex-shrink: 0; }
 
         .grid-address-time {
             display: flex;
             gap: 5px;
             margin-bottom: 14px;
         }
-
         .grid-address-time > *:nth-child(1) { flex: 1; }
         .grid-address-time > *:nth-child(2) { width: 140px; flex-shrink: 0; }
 
@@ -226,53 +216,34 @@
         }
 
         .motor-row .motor-select-col { flex: 1; }
-        .motor-row .motor-qty-col { width: 97px; flex-shrink: 0; }
+        .motor-row .motor-qty-col { width: 140px; flex-shrink: 0; }
         .motor-row .motor-btn-col { width: 38px; flex-shrink: 0; display: flex; justify-content: center; }
 
         .motor-row select[name="qty[]"] { 
-            text-align: center; 
-            font-weight: 600 !important;
+            text-align: left; 
+            font-weight: 400 !important;
             font-size: 13px !important;
             color: #1e293b !important;
             font-family: 'Inter', sans-serif !important;
-            padding: 10px 4px !important;
+            padding: 10px 12px !important;
             cursor: pointer;
         }
 
+        @media (min-width: 601px) {
+            .grid-date-duration > *:nth-child(2) { width: 140px; }
+        }
+
         @media (max-width: 600px) {
-            .grid-user-info {
-                flex-direction: column;
-                gap: 0;
-            }
+            .grid-user-info { flex-direction: column; gap: 0; }
+            .grid-address-time { flex-direction: column; gap: 0; }
+            .grid-address-time > *:nth-child(2) { width: 100%; }
+            .grid-address-time textarea { height: 52px; min-height: 52px; padding-top: 10px !important; }
+            
+            .grid-date-duration { display: flex; gap: 5px; }
+            .grid-date-duration > *:nth-child(1) { flex: 1; }
+            .grid-date-duration > *:nth-child(2) { width: 140px; flex-shrink: 0; }
 
-            .grid-address-time {
-                flex-direction: column;
-                gap: 0;
-            }
-            .grid-address-time > *:nth-child(2) {
-                width: 100%;
-            }
-
-            .grid-address-time textarea {
-                height: 52px;
-                min-height: 52px;
-                padding-top: 10px !important;
-            }
-
-            .grid-date-duration {
-                display: flex;
-                gap: 5px;
-                margin-bottom: 14px;
-            }
-
-            .grid-date-duration > *:nth-child(1) { 
-                flex: 1; 
-            }
-
-            .grid-date-duration > *:nth-child(2) { 
-                width: 140px; 
-                flex-shrink: 0;
-            }
+            .motor-row .motor-qty-col { width: 110px; }
         }
 
         .btn-action {
@@ -291,11 +262,6 @@
         }
         .btn-add { background-color: #10b981; }
         .btn-add:hover { background-color: #059669; }
-        .btn-add.disabled {
-            background-color: #cbd5e1 !important;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
         .btn-remove { background-color: #ef4444; }
         .btn-remove:hover { background-color: #dc2626; }
 
@@ -480,7 +446,6 @@
             color: #0f172a;
         }
 
-        /* Calendar Tooltip styling */
         .flatpickr-calendar .flatpickr-day-tooltip {
             position: absolute;
             top: -28px;
@@ -568,7 +533,7 @@
                 </div>
                 <div class="form-group">
                     <label>Durasi</label>
-                    <input type="text" id="durasi_label" readonly value="2 Hari" style="text-align: center; font-weight: 700 !important; color: #2563eb !important; width: 100%;">
+                    <input type="text" id="durasi_label" readonly value="2 Hari" style="text-align: center; font-weight: 600 !important; color: #2563eb !important; width: 100%;">
                     <input type="hidden" id="durasi" name="durasi" value="2">
                 </div>
             </div>
@@ -676,12 +641,25 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEBay3jzDbYw7iUdlG2Jt3oIXgT4r61_fX9BMHK1gdd6BxPJOZfygNa_MzChfVf_6uHw/exec"; 
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx.../exec"; 
         const ADMIN_WA = "6281999009090";
 
-        let priceListData = [];
+        // Pre-initialize fallback price list immediately so lookups never return undefined
+        let priceListData = [
+            { nama: "Honda Beat", p1_5: 70000, p6_10: 60000, p11_14: 50000, p30: 45000 },
+            { nama: "Honda Scoopy FI", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
+            { nama: "Honda Scoopy NEW", p1_5: 80000, p6_10: 75000, p11_14: 65000, p30: 50000 },
+            { nama: "Yamaha Fazzio", p1_5: 85000, p6_10: 80000, p11_14: 70000, p30: 60000 },
+            { nama: "Yamaha Lexi", p1_5: 110000, p6_10: 100000, p11_14: 90000, p30: 80000 },
+            { nama: "Honda Vario 110", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
+            { nama: "Honda Vario 125", p1_5: 90000, p6_10: 85000, p11_14: 80000, p30: 65000 },
+            { nama: "Honda Vario 160", p1_5: 100000, p6_10: 90000, p11_14: 85000, p30: 70000 },
+            { nama: "Honda PCX", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
+            { nama: "Yamaha N Max", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
+            { nama: "Yamaha N Max (Turbo)", p1_5: 170000, p6_10: 140000, p11_14: 120000, p30: 100000 }
+        ];
+
         let durasiHari = 2;
-        let baseCalendarDays = 2;
         let selectedStartDate = new Date();
         let selectedEndDate = new Date();
         let flatpickrInstance = null;
@@ -715,7 +693,6 @@
         function setupAutoFocusFlow() {
             const namaInput = document.getElementById('nama');
             const waInput = document.getElementById('whatsapp');
-            const tglInput = document.getElementById('tanggal_sewa');
             const alamatAntarInput = document.getElementById('alamat_antar');
             const jamAntarSelect = document.getElementById('waktu_antar');
             const alamatKembaliInput = document.getElementById('alamat_kembali');
@@ -787,11 +764,6 @@
                     if (selectedDates.length === 2) {
                         selectedStartDate = selectedDates[0];
                         selectedEndDate = selectedDates[1];
-                        
-                        const diffTime = Math.abs(selectedEndDate.getTime() - selectedStartDate.getTime());
-                        baseCalendarDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-                    } else {
-                        baseCalendarDays = 1;
                     }
                     calculateDuration();
                 },
@@ -823,7 +795,6 @@
                 },
                 onClose: function(selectedDates) {
                     if (selectedDates.length === 2) {
-                        // Auto focus to first motor selection field after date choice
                         setTimeout(() => {
                             const firstMotorSelect = document.querySelector('.motor-select');
                             if (firstMotorSelect) firstMotorSelect.focus();
@@ -831,18 +802,16 @@
                     }
                 }
             });
-
-            const diffTime = Math.abs(selectedEndDate.getTime() - selectedStartDate.getTime());
-            baseCalendarDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
             calculateDuration();
         }
 
+        // Exact duration calculation rules with 2-hour grace period & 2-day minimum
         function calculateDuration() {
-            let totalDays = baseCalendarDays;
+            if (!selectedStartDate || !selectedEndDate) return;
 
-            if (totalDays < 2) {
-                totalDays = 2;
-            }
+            const timeDiff = selectedEndDate.getTime() - selectedStartDate.getTime();
+            let baseDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+            if (baseDays < 1) baseDays = 1;
 
             const jamAntarVal = document.getElementById('waktu_antar').value || "09:00";
             const jamKembaliVal = document.getElementById('waktu_kembali').value || "09:00";
@@ -854,12 +823,16 @@
             const totalMinsKembali = h2 * 60 + m2;
             const diffMinutes = totalMinsKembali - totalMinsAntar;
 
+            let totalDays = baseDays;
             if (diffMinutes > 120) {
                 totalDays += 1;
             }
 
-            durasiHari = totalDays;
+            if (totalDays < 2) {
+                totalDays = 2;
+            }
 
+            durasiHari = totalDays;
             document.getElementById('durasi_label').value = `${durasiHari} Hari`;
             document.getElementById('durasi').value = durasiHari;
 
@@ -872,31 +845,12 @@
                 .then(res => {
                     if (res.status === 'success' && res.data && res.data.length > 0) {
                         priceListData = res.data;
-                    } else {
-                        useFallbackPriceList();
                     }
                     renderInitialMotorRow();
                 })
                 .catch(err => {
-                    useFallbackPriceList();
                     renderInitialMotorRow();
                 });
-        }
-
-        function useFallbackPriceList() {
-            priceListData = [
-                { nama: "Honda Beat", p1_5: 70000, p6_10: 60000, p11_14: 50000, p30: 45000 },
-                { nama: "Honda Scoopy FI", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
-                { nama: "Honda Scoopy NEW", p1_5: 80000, p6_10: 75000, p11_14: 65000, p30: 50000 },
-                { nama: "Yamaha Fazzio", p1_5: 85000, p6_10: 80000, p11_14: 70000, p30: 60000 },
-                { nama: "Yamaha Lexi", p1_5: 110000, p6_10: 100000, p11_14: 90000, p30: 80000 },
-                { nama: "Honda Vario 110", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
-                { nama: "Honda Vario 125", p1_5: 90000, p6_10: 85000, p11_14: 80000, p30: 65000 },
-                { nama: "Honda Vario 160", p1_5: 100000, p6_10: 90000, p11_14: 85000, p30: 70000 },
-                { nama: "Honda PCX", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
-                { nama: "Yamaha N Max", p1_5: 150000, p6_10: 120000, p11_14: 100000, p30: 90000 },
-                { nama: "Yamaha N Max (Turbo)", p1_5: 170000, p6_10: 140000, p11_14: 120000, p30: 100000 }
-            ];
         }
 
         function renderInitialMotorRow() {
@@ -913,7 +867,6 @@
             return options;
         }
 
-        // Validate if (+) button can add a new motor row
         function addMotorRow(isFirst = false) {
             if (!isFirst) {
                 const motorSelects = document.querySelectorAll('.motor-select');
@@ -964,7 +917,6 @@
         function onMotorSelected(selectElem) {
             calculateTotal();
             if (selectElem.value !== '') {
-                // Focus to delivery address field if selection complete
                 document.getElementById('alamat_antar').focus();
             }
         }
@@ -1006,7 +958,7 @@
 
                 const selectedOption = select.options[select.selectedIndex];
                 const itemIndex = selectedOption ? selectedOption.getAttribute('data-index') : null;
-                const itemData = priceListData[itemIndex];
+                const itemData = (itemIndex !== null && priceListData[itemIndex]) ? priceListData[itemIndex] : null;
 
                 if (itemData) {
                     hasValidItem = true;
@@ -1066,7 +1018,7 @@
                 const select = card.querySelector('.motor-select');
                 const qty = card.querySelector('.motor-qty').value;
                 if(select.value) {
-                    listMotorStr += `- ${select.value} (${qty} Unit)\n`;
+                    listMotorStr += `- ${select.value} (${qty})\n`;
                 }
             });
 
