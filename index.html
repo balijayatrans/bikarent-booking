@@ -78,6 +78,73 @@
             margin: 0;
             border-radius: 0;
         }
+
+        /* Step Progress Indicator */
+        .step-wizard {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: #f1f5f9;
+            padding: 6px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .step-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: none;
+            background: transparent;
+        }
+
+        .step-btn.active {
+            background: #ffffff;
+            color: #1e293b;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        .step-btn .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            color: #ffffff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-btn.active .step-num {
+            background: #f1c10f;
+            color: #1e293b;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
         .form-group {
             margin-bottom: 14px;
@@ -181,26 +248,27 @@
 
         .grid-user-info {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             margin-bottom: 2px;
         }
         .grid-user-info > * { flex: 1; }
 
+        /* KONSISTENSI LEBAR FIELD 80% / 20% */
         .grid-date-duration {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             margin-bottom: 14px;
         }
-        .grid-date-duration > *:nth-child(1) { flex: 1; }
-        .grid-date-duration > *:nth-child(2) { width: 140px; flex-shrink: 0; }
+        .grid-date-duration > *:nth-child(1) { flex: 1; min-width: 0; }
+        .grid-date-duration > *:nth-child(2) { width: 20%; flex-shrink: 0; }
 
         .grid-address-time {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             margin-bottom: 14px;
         }
-        .grid-address-time > *:nth-child(1) { flex: 1; }
-        .grid-address-time > *:nth-child(2) { width: 140px; flex-shrink: 0; }
+        .grid-address-time > *:nth-child(1) { flex: 1; min-width: 0; }
+        .grid-address-time > *:nth-child(2) { width: 35%; flex-shrink: 0; }
 
         .motor-row-card {
             background: transparent;
@@ -211,26 +279,32 @@
 
         .motor-row {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             align-items: center;
         }
 
-        .motor-row .motor-select-col { flex: 1; }
-        .motor-row .motor-qty-col { width: 140px; flex-shrink: 0; }
+        .motor-row .motor-select-col { flex: 1; min-width: 0; }
+        .motor-row .motor-qty-col { width: 20%; flex-shrink: 0; }
         .motor-row .motor-btn-col { width: 38px; flex-shrink: 0; display: flex; justify-content: center; }
 
         .motor-row select[name="qty[]"] { 
-            text-align: left; 
-            font-weight: 400 !important;
+            text-align: center; 
+            font-weight: 500 !important;
             font-size: 13px !important;
             color: #1e293b !important;
             font-family: 'Inter', sans-serif !important;
-            padding: 10px 12px !important;
+            padding: 10px 4px !important;
             cursor: pointer;
         }
 
-        @media (min-width: 601px) {
-            .grid-date-duration > *:nth-child(2) { width: 140px; }
+        /* DYNAMIC VISIBILITY CLASS FOR STEP-BY-STEP FLOW */
+        .conditional-field {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .conditional-field.visible {
+            display: block;
         }
 
         @media (max-width: 600px) {
@@ -239,11 +313,11 @@
             .grid-address-time > *:nth-child(2) { width: 100%; }
             .grid-address-time textarea { height: 52px; min-height: 52px; padding-top: 10px !important; }
             
-            .grid-date-duration { display: flex; gap: 5px; }
+            .grid-date-duration { display: flex; gap: 6px; }
             .grid-date-duration > *:nth-child(1) { flex: 1; }
-            .grid-date-duration > *:nth-child(2) { width: 140px; flex-shrink: 0; }
+            .grid-date-duration > *:nth-child(2) { width: 22%; flex-shrink: 0; }
 
-            .motor-row .motor-qty-col { width: 110px; }
+            .motor-row .motor-qty-col { width: 22%; }
         }
 
         .btn-action {
@@ -265,6 +339,46 @@
         .btn-remove { background-color: #ef4444; }
         .btn-remove:hover { background-color: #dc2626; }
 
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-step-prev {
+            flex: 1;
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 14px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-step-next {
+            flex: 2;
+            background-color: #2563eb;
+            color: white;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
         .tier-badge {
             display: inline-block;
             padding: 3px 8px;
@@ -274,14 +388,6 @@
             font-weight: 700;
             border-radius: 6px;
             margin-bottom: 10px;
-        }
-
-        .estimation-card {
-            background-color: #eff6ff;
-            border: 1px solid #bfdbfe;
-            border-radius: 12px;
-            padding: 16px;
-            margin: 0;
         }
 
         .estimation-breakdown {
@@ -305,50 +411,8 @@
             margin-bottom: 6px;
         }
 
-        .estimation-card .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .estimation-card .value-total {
-            font-size: 18px;
-            font-weight: 800;
-            color: #1d4ed8;
-        }
-
-        .bottom-action-grid {
-            display: flex;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .btn-check-price {
-            flex: 1;
-            background-color: #0284c7;
-            color: white;
-            padding: 14px 10px;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
-        }
-
-        .btn-check-price:hover {
-            background-color: #0369a1;
-            transform: translateY(-1px);
-        }
-
         .whatsapp-submit-btn {
-            flex: 1.2;
+            flex: 2;
             background-color: #16a34a;
             color: white;
             padding: 14px 10px;
@@ -371,6 +435,7 @@
             transform: translateY(-1px);
         }
 
+        /* MODAL STYLES */
         .price-modal-overlay {
             position: fixed;
             top: 0;
@@ -446,6 +511,86 @@
             color: #0f172a;
         }
 
+        /* SUCCESS MODAL SPECIFIC STYLES */
+        .success-content {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #dcfce7;
+            color: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px auto;
+        }
+
+        .success-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+
+        .success-text {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* CARD INSTRUKSI COPY PASTE WHATSAPP */
+        .copy-instruction-card {
+            background-color: #f0fdf4;
+            border: 1px dashed #22c55e;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .instruction-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .instruction-text {
+            font-size: 12px;
+            color: #166534;
+            line-height: 1.4;
+        }
+
+        .btn-continue-wa {
+            width: 100%;
+            background-color: #16a34a;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-continue-wa:hover {
+            background-color: #15803d;
+        }
+
         .flatpickr-calendar .flatpickr-day-tooltip {
             position: absolute;
             top: -28px;
@@ -482,6 +627,113 @@
         .validation-toast.show {
             transform: translateX(-50%) translateY(0);
         }
+
+        /* STYLES FOR PRE-SUBMIT REVIEW MODAL */
+        .review-modal-card {
+            max-width: 520px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-modal-body {
+            overflow-y: auto;
+            padding-right: 4px;
+            margin-bottom: 15px;
+        }
+
+        .review-section {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .review-section-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .review-section-title .title-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+
+        .review-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .review-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit-form {
+            flex: 1;
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-form:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-confirm-submit {
+            flex: 1.5;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+        }
+
+        .btn-confirm-submit:hover {
+            background-color: #15803d;
+        }
     </style>
 </head>
 <body>
@@ -493,7 +745,19 @@
             <div class="header-divider"></div>
         </div>
 
-        <form id="bookingForm" onsubmit="submitForm(event)">
+        <!-- Step Wizard Tabs (Mobile Optimized) -->
+        <div class="step-wizard">
+            <button type="button" class="step-btn active" id="tabStep1" onclick="switchStep(1)">
+                <span class="step-num">1</span>
+                <span>Unit & Tanggal</span>
+            </button>
+            <button type="button" class="step-btn" id="tabStep2" onclick="switchStep(2)">
+                <span class="step-num">2</span>
+                <span>Lokasi Antar</span>
+            </button>
+        </div>
+
+        <form id="bookingForm" onsubmit="openReviewModal(event)">
             
             <input type="hidden" id="nopol" name="nopol" value="">
             <input type="hidden" id="ongkir" name="ongkir" value="0">
@@ -503,133 +767,289 @@
             <input type="hidden" id="penerima_pembayaran" name="penerima_pembayaran" value="">
             <input type="hidden" id="status_unit" name="status_unit" value="Order">
 
-            <!-- Grid Nama Lengkap & WhatsApp -->
-            <div class="grid-user-info">
-                <div class="form-group">
-                    <label>Nama Lengkap *</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-solid fa-user field-icon"></i>
-                        <input type="text" id="nama" name="nama" required placeholder="Sesuai KTP / SIM">
+            <!-- ================= SEKSI 1: DATA PEMESAN & TANGGAL SEWA ================= -->
+            <div class="form-section active" id="sectionStep1">
+                <!-- Grid Nama Lengkap & WhatsApp -->
+                <div class="grid-user-info">
+                    <div class="form-group">
+                        <label>Nama Lengkap *</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-user field-icon"></i>
+                            <input type="text" id="nama" name="nama" required placeholder="Sesuai KTP / SIM">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nomor WhatsApp *</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-brands fa-whatsapp field-icon"></i>
+                            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="08123456789">
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Nomor WhatsApp *</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-brands fa-whatsapp field-icon"></i>
-                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="08123456789">
+                <!-- Tanggal Sewa & Durasi Grid -->
+                <div class="grid-date-duration">
+                    <div class="form-group">
+                        <label>Tanggal Sewa *</label>
+                        <div class="input-icon-wrapper date-wrapper">
+                            <i class="fa-solid fa-calendar-days field-icon"></i>
+                            <input type="text" id="tanggal_sewa" name="tanggal_sewa" required placeholder="Pilih Tanggal Mulai - Selesai">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Durasi</label>
+                        <input type="text" id="durasi_label" readonly value="2 Hari" style="text-align: center; font-weight: 600 !important; color: #2563eb !important; width: 100%;">
+                        <input type="hidden" id="durasi" name="durasi" value="2">
                     </div>
                 </div>
-            </div>
 
-            <!-- Tanggal Sewa & Durasi Grid -->
-            <div class="grid-date-duration">
+                <!-- Pemilihan Motor -->
                 <div class="form-group">
-                    <label>Tanggal Sewa *</label>
-                    <div class="input-icon-wrapper date-wrapper">
-                        <i class="fa-solid fa-calendar-days field-icon"></i>
-                        <input type="text" id="tanggal_sewa" name="tanggal_sewa" required placeholder="Pilih Tanggal Mulai - Selesai">
+                    <label>Pilih Motor & Jumlah *</label>
+                    <div id="motorContainer">
+                        <!-- Dynamic Rows Populated via JS -->
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Durasi</label>
-                    <input type="text" id="durasi_label" readonly value="2 Hari" style="text-align: center; font-weight: 600 !important; color: #2563eb !important; width: 100%;">
-                    <input type="hidden" id="durasi" name="durasi" value="2">
+
+                <div class="nav-buttons">
+                    <button type="button" class="btn-step-next" onclick="goToStep2()">
+                        <span>Lanjut ke Lokasi Antar</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Pemilihan Motor -->
-            <div class="form-group">
-                <label>Pilih Motor & Jumlah *</label>
-                <div id="motorContainer">
-                    <!-- Dynamic Rows Populated via JS -->
+            <!-- ================= SEKSI 2: LOKASI PENGANTARAN & CATATAN ================= -->
+            <div class="form-section" id="sectionStep2">
+                <!-- Pengantaran -->
+                <div class="grid-address-time">
+                    <div class="form-group">
+                        <label>Area Pengantaran *</label>
+                        <div class="input-icon-wrapper select-wrapper">
+                            <i class="fa-solid fa-map-location-dot field-icon"></i>
+                            <select id="area_antar" name="area_antar" onchange="onAreaAntarChange()" required>
+                                <option value="" disabled selected>-- Pilih Area --</option>
+                                <option value="Kuta" data-fee="0">Kuta (Free Delivery)</option>
+                                <option value="Legian" data-fee="0">Legian (Free Delivery)</option>
+                                <option value="Bandara" data-fee="0">Bandara Ngurah Rai (Free Delivery)</option>
+                                <option value="Seminyak" data-fee="0">Seminyak (Free Delivery)</option>
+                                <option value="Jimbaran" data-fee="30000">Jimbaran (+Rp 30.000)</option>
+                                <option value="Denpasar" data-fee="30000">Denpasar (+Rp 30.000)</option>
+                                <option value="Sanur" data-fee="40000">Sanur (+Rp 40.000)</option>
+                                <option value="Nusa Dua" data-fee="50000">Nusa Dua (+Rp 50.000)</option>
+                                <option value="Canggu" data-fee="50000">Canggu (+Rp 50.000)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Jam Pengantaran</label>
+                        <div class="input-icon-wrapper select-wrapper">
+                            <i class="fa-solid fa-clock field-icon"></i>
+                            <select id="waktu_antar" name="waktu_antar" class="time-select" onchange="calculateDuration()"></select>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Penyerahan -->
-            <div class="grid-address-time">
-                <div class="form-group">
-                    <label>Alamat Penyerahan *</label>
+                <!-- Field Alamat Spesifik Pengantaran -->
+                <div class="form-group" id="wrapper_alamat_antar">
+                    <label>Alamat Spesifik Pengantaran *</label>
                     <div class="input-icon-wrapper textarea-wrapper">
                         <i class="fa-solid fa-location-dot field-icon"></i>
-                        <textarea id="alamat_antar" name="alamat_antar" required placeholder="Hotel / Bandara / Alamat"></textarea>
+                        <textarea id="alamat_antar" name="alamat_antar" oninput="onAlamatAntarInput(this)" placeholder="Nama Hotel / Terminal Bandara / Alamat Spesifik"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Jam Penyerahan</label>
-                    <div class="input-icon-wrapper select-wrapper">
-                        <i class="fa-solid fa-clock field-icon"></i>
-                        <select id="waktu_antar" name="waktu_antar" class="time-select" onchange="calculateDuration()"></select>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pengembalian -->
-            <div class="grid-address-time">
-                <div class="form-group">
-                    <label>Alamat Pengembalian *</label>
-                    <div class="input-icon-wrapper textarea-wrapper">
-                        <i class="fa-solid fa-location-arrow field-icon"></i>
-                        <textarea id="alamat_kembali" name="alamat_kembali" required placeholder="Alamat Pengembalian"></textarea>
+                <!-- Section Pengembalian -->
+                <div id="wrapper_pengembalian_section">
+                    <div class="grid-address-time">
+                        <div class="form-group">
+                            <label>Area Penjemputan / Pengembalian *</label>
+                            <div class="input-icon-wrapper select-wrapper">
+                                <i class="fa-solid fa-map-location-dot field-icon"></i>
+                                <select id="area_kembali" name="area_kembali" onchange="calculateTotal()" required>
+                                    <option value="" disabled selected>-- Pilih Area --</option>
+                                    <option value="Kuta" data-fee="0">Kuta (Free Pick-up)</option>
+                                    <option value="Legian" data-fee="0">Legian (Free Pick-up)</option>
+                                    <option value="Bandara" data-fee="0">Bandara Ngurah Rai (Free Pick-up)</option>
+                                    <option value="Seminyak" data-fee="0">Seminyak (Free Pick-up)</option>
+                                    <option value="Jimbaran" data-fee="30000">Jimbaran (+Rp 30.000)</option>
+                                    <option value="Denpasar" data-fee="30000">Denpasar (+Rp 30.000)</option>
+                                    <option value="Sanur" data-fee="40000">Sanur (+Rp 40.000)</option>
+                                    <option value="Nusa Dua" data-fee="50000">Nusa Dua (+Rp 50.000)</option>
+                                    <option value="Canggu" data-fee="50000">Canggu (+Rp 50.000)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Jam Pengembalian</label>
+                            <div class="input-icon-wrapper select-wrapper">
+                                <i class="fa-solid fa-clock field-icon"></i>
+                                <select id="waktu_kembali" name="waktu_kembali" class="time-select" onchange="calculateDuration()"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat Spesifik Penjemputan / Pengembalian *</label>
+                        <div class="input-icon-wrapper textarea-wrapper">
+                            <i class="fa-solid fa-location-arrow field-icon"></i>
+                            <textarea id="alamat_kembali" name="alamat_kembali" placeholder="Alamat Pengembalian / Penjemputan Unit"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Catatan Tambahan -->
+                    <div class="form-group">
+                        <label>Catatan Tambahan (Opsional)</label>
+                        <div class="input-icon-wrapper textarea-wrapper">
+                            <i class="fa-solid fa-note-sticky field-icon"></i>
+                            <textarea id="pesan_tambahan" name="pesan_tambahan" class="notes-textarea" placeholder="Jumlah helm, ukuran helm, jas hujan, dll."></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Jam Pengembalian</label>
-                    <div class="input-icon-wrapper select-wrapper">
-                        <i class="fa-solid fa-clock field-icon"></i>
-                        <select id="waktu_kembali" name="waktu_kembali" class="time-select" onchange="calculateDuration()"></select>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Catatan Tambahan -->
-            <div class="form-group">
-                <label>Catatan Tambahan (Opsional)</label>
-                <div class="input-icon-wrapper textarea-wrapper">
-                    <i class="fa-solid fa-note-sticky field-icon"></i>
-                    <textarea id="pesan_tambahan" name="pesan_tambahan" class="notes-textarea" placeholder="Jumlah helm, jas hujan, dll."></textarea>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-step-prev" onclick="switchStep(1)">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali</span>
+                    </button>
+                    <button type="submit" id="submitBtn" class="whatsapp-submit-btn">
+                        <i class="fa-solid fa-clipboard-check" style="font-size: 18px;"></i>
+                        <span id="submitBtnText">Review & Booking</span>
+                    </button>
                 </div>
-            </div>
-
-            <!-- Grid 2 Tombol di Bagian Bawah -->
-            <div class="bottom-action-grid">
-                <button type="button" class="btn-check-price" onclick="openPriceModal()">
-                    <i class="fa-solid fa-calculator"></i>
-                    <span>Cek Harga</span>
-                </button>
-                <button type="submit" class="whatsapp-submit-btn">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i>
-                    <span>Booking Motor</span>
-                </button>
             </div>
 
         </form>
     </div>
 
-    <!-- POP-UP MODAL HARGA -->
-    <div class="price-modal-overlay" id="priceModalOverlay" onclick="closePriceModalOnOutside(event)">
-        <div class="price-modal">
+    <!-- POP-UP MODAL PRE-SUBMIT REVIEW DATA & RINCIAN BIAYA -->
+    <div class="price-modal-overlay" id="reviewModalOverlay">
+        <div class="price-modal review-modal-card">
             <div class="modal-header">
                 <div class="modal-title">
-                    <i class="fa-solid fa-receipt" style="color: #2563eb;"></i>
-                    <span>Rincian Estimasi Biaya</span>
+                    <i class="fa-solid fa-clipboard-check" style="color: #2563eb;"></i>
+                    <span>Verifikasi & Konfirmasi Pemesanan</span>
                 </div>
-                <button type="button" class="modal-close-btn" onclick="closePriceModal()">
+                <button type="button" class="modal-close-btn" onclick="closeReviewModal()">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             
-            <div class="estimation-card">
-                <div id="tierBadgeContainer">
-                    <span class="tier-badge" id="modalTierBadge">Paket Harian (1-5 Hari)</span>
+            <div class="review-modal-body">
+                <!-- Data Pemesan -->
+                <div class="review-section">
+                    <div class="review-section-title">
+                        <div class="title-left"><i class="fa-solid fa-user"></i> Data Pelanggan</div>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Nama:</span>
+                        <span class="review-value" id="revNama">-</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">WhatsApp:</span>
+                        <span class="review-value" id="revWa">-</span>
+                    </div>
                 </div>
-                <div class="estimation-breakdown" id="modalBreakdownContainer">
-                    <div style="color: #94a3b8; font-style: italic;">Pilih unit motor untuk melihat rincian...</div>
+
+                <!-- Unit & Jadwal -->
+                <div class="review-section">
+                    <div class="review-section-title">
+                        <div class="title-left"><i class="fa-solid fa-motorcycle"></i> Unit & Jadwal Sewa</div>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Unit Motor:</span>
+                        <span class="review-value" id="revMotor">-</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Tanggal Sewa:</span>
+                        <span class="review-value" id="revTanggal">-</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Durasi:</span>
+                        <span class="review-value" id="revDurasi">-</span>
+                    </div>
                 </div>
-                <div class="total-row">
-                    <div style="font-size: 14px; font-weight: 700; color: #1e40af;">Total Estimasi</div>
-                    <div class="value-total" id="modalGrandTotalDisplay">Rp 0</div>
+
+                <!-- Lokasi Pengantaran & Pengembalian -->
+                <div class="review-section">
+                    <div class="review-section-title">
+                        <div class="title-left"><i class="fa-solid fa-map-pin"></i> Lokasi Pengantaran & Pengembalian</div>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Pengantaran:</span>
+                        <span class="review-value" id="revPengantaran">-</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Pengembalian:</span>
+                        <span class="review-value" id="revPengembalian">-</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Catatan:</span>
+                        <span class="review-value" id="revCatatan">-</span>
+                    </div>
                 </div>
+
+                <!-- Rincian Biaya Lengkap (Badge di Sejajar Kanan Header) -->
+                <div class="review-section" style="background-color: #eff6ff; border-color: #bfdbfe;">
+                    <div class="review-section-title" style="color: #1d4ed8; margin-bottom: 12px;">
+                        <div class="title-left"><i class="fa-solid fa-receipt"></i> Rincian Biaya</div>
+                        <span class="tier-badge" id="modalTierBadge" style="margin-bottom: 0;">Paket Harian (1-5 Hari)</span>
+                    </div>
+                    <div class="estimation-breakdown" id="modalBreakdownContainer" style="border-bottom: 1px dashed #bfdbfe; padding-bottom: 10px; margin-bottom: 10px;">
+                        <div style="color: #94a3b8; font-style: italic;">Memuat rincian...</div>
+                    </div>
+                    <div class="review-item" style="font-size: 15px; margin-bottom: 0;">
+                        <span class="review-label" style="font-weight: 700; color: #1e40af;">Total Biaya:</span>
+                        <span class="review-value" id="revTotalHarga" style="font-size: 18px; color: #1d4ed8; font-weight: 800;">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-actions">
+                <button type="button" class="btn-edit-form" onclick="closeReviewModal()">
+                    <i class="fa-solid fa-pen"></i> Ubah Data
+                </button>
+                <button type="button" class="btn-confirm-submit" id="btnFinalSubmit" onclick="executeSubmitForm()">
+                    <i class="fa-brands fa-whatsapp"></i> Setuju & Kirim
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POP-UP MODAL KONFIRMASI PESAN TERKIRIM -->
+    <div class="price-modal-overlay" id="successModalOverlay">
+        <div class="price-modal">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="success-title">Pesan Berhasil Terkirim!</div>
+                <div class="success-text">
+                    Rincian pesanan Anda telah diproses. Silakan lanjutkan pengiriman pesan melalui WhatsApp untuk mendapatkan konfirmasi resmi dari Admin Bikarent.
+                </div>
+
+                <!-- BOX INSTRUKSI TERSALIN AUTOMATIS -->
+                <div class="copy-instruction-card">
+                    <div class="instruction-title">
+                        <i class="fa-solid fa-copy"></i> Draf Pesan Berhasil Disalin!
+                    </div>
+                    <div class="instruction-text">
+                        Untuk mempercepat proses konfirmasi, silakan klik tombol di bawah untuk mengirim detail pesanan ke WhatsApp Admin Bikarent.
+                    </div>
+                </div>
+
+                <!-- TAMPILAN TOMBOL DOWNLOAD INVOICE DRIVER GOOGLE DRIVE -->
+                <div style="margin-bottom: 12px;">
+                    <a id="btnDownloadInvoice" href="https://drive.google.com/drive/folders/1--ewAqkelRMPil7D78VVBFOmU8A0s0jd" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; background-color: #3b82f6; color: white; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.2s ease;">
+                        <i class="fa-solid fa-file-arrow-down"></i> Unduh Invoice Pesanan (Google Drive)
+                    </a>
+                </div>
+
+                <button type="button" id="confirmWaBtn" class="btn-continue-wa">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Kirim Pesan via WhatsApp</span>
+                </button>
             </div>
         </div>
     </div>
@@ -644,7 +1064,6 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx.../exec"; 
         const ADMIN_WA = "6281999009090";
 
-        // Pre-initialize fallback price list immediately so lookups never return undefined
         let priceListData = [
             { nama: "Honda Beat", p1_5: 70000, p6_10: 60000, p11_14: 50000, p30: 45000 },
             { nama: "Honda Scoopy FI", p1_5: 60000, p6_10: 50000, p11_14: 45000, p30: 35000 },
@@ -670,15 +1089,79 @@
             fetchPriceList();
             setupAutoFocusFlow();
 
-            document.getElementById('alamat_antar').addEventListener('input', function() {
-                document.getElementById('alamat_kembali').value = this.value;
-            });
-
             document.getElementById('waktu_antar').addEventListener('change', function() {
                 document.getElementById('waktu_kembali').value = this.value;
                 calculateDuration();
             });
         });
+
+        // HANDLER TRIGGER LOGIKA TAMPILKAN ALAMAT SPESIFIK & PENGEMBALIAN
+        function onAreaAntarChange() {
+            const areaAntarElem = document.getElementById('area_antar');
+            if (areaAntarElem.value !== "") {
+                // Auto-sync ke area kembali jika belum diisi
+                const areaKembaliElem = document.getElementById('area_kembali');
+                if (!areaKembaliElem.value) {
+                    areaKembaliElem.value = areaAntarElem.value;
+                }
+            }
+            calculateTotal();
+        }
+
+        function onAlamatAntarInput(textareaElem) {
+            const alamatKembaliElem = document.getElementById('alamat_kembali');
+
+            if (textareaElem.value.trim() !== "") {
+                // Auto-copy alamat pengantaran ke pengembalian
+                if (!alamatKembaliElem.value || alamatKembaliElem.dataset.autocopy !== "false") {
+                    alamatKembaliElem.value = textareaElem.value;
+                }
+            }
+        }
+
+        document.getElementById('alamat_kembali')?.addEventListener('input', function() {
+            this.dataset.autocopy = "false";
+        });
+
+        function switchStep(stepNum) {
+            document.querySelectorAll('.form-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`sectionStep${stepNum}`).classList.add('active');
+            document.getElementById(`tabStep${stepNum}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToStep2() {
+            const nama = document.getElementById('nama').value.trim();
+            const waRaw = document.getElementById('whatsapp').value.trim();
+            const motorSelects = document.querySelectorAll('.motor-select');
+
+            if (!nama || !waRaw) {
+                showToast("Mohon lengkapi Nama dan WhatsApp terlebih dahulu!");
+                return;
+            }
+
+            // Validasi Format Nomor WhatsApp Indonesia
+            const waClean = waRaw.replace(/[^0-9]/g, '');
+            if (waClean.length < 9 || waClean.length > 15 || (!waClean.startsWith('08') && !waClean.startsWith('628'))) {
+                showToast("Nomor WhatsApp tidak valid! Gunakan format 08xx atau 628xx yang aktif.");
+                document.getElementById('whatsapp').focus();
+                return;
+            }
+
+            let hasMotor = false;
+            motorSelects.forEach(sel => {
+                if (sel.value !== "") hasMotor = true;
+            });
+
+            if (!hasMotor) {
+                showToast("Mohon pilih minimal 1 unit motor!");
+                return;
+            }
+
+            switchStep(2);
+        }
 
         function showToast(message) {
             const toast = document.getElementById('toast');
@@ -689,7 +1172,6 @@
             }, 2500);
         }
 
-        // Auto focus sequence flow
         function setupAutoFocusFlow() {
             const namaInput = document.getElementById('nama');
             const waInput = document.getElementById('whatsapp');
@@ -805,7 +1287,6 @@
             calculateDuration();
         }
 
-        // Exact duration calculation rules with 2-hour grace period & 2-day minimum
         function calculateDuration() {
             if (!selectedStartDate || !selectedEndDate) return;
 
@@ -916,9 +1397,6 @@
 
         function onMotorSelected(selectElem) {
             calculateTotal();
-            if (selectElem.value !== '') {
-                document.getElementById('alamat_antar').focus();
-            }
         }
 
         function removeMotorRow(btn) {
@@ -937,18 +1415,19 @@
         function getTierName(days) {
             if (days >= 30) return "Paket Bulanan (≥ 30 Hari)";
             if (days >= 11) return "Paket Hemat (11-14 Hari)";
-            if (days >= 6) return "Paket Mingguan (6-10 Hari)";
+            if (days >= 6) return "Promo paket mingguan";
             return "Paket Harian (1-5 Hari)";
         }
 
         function calculateTotal() {
-            let grandTotal = 0;
+            let grossMotorTotal = 0;
+            let totalDiscount = 0;
             const cards = document.querySelectorAll('.motor-row-card');
             const modalBreakdownContainer = document.getElementById('modalBreakdownContainer');
             const modalTierBadge = document.getElementById('modalTierBadge');
             
-            modalTierBadge.textContent = getTierName(durasiHari);
-            modalBreakdownContainer.innerHTML = '';
+            if (modalTierBadge) modalTierBadge.textContent = getTierName(durasiHari);
+            if (modalBreakdownContainer) modalBreakdownContainer.innerHTML = '';
 
             let hasValidItem = false;
 
@@ -962,63 +1441,169 @@
 
                 if (itemData) {
                     hasValidItem = true;
+                    const baseRate = itemData.p1_5 || 0; // Tarif Harian Standar Normal
                     const dailyRate = getDailyRate(itemData, durasiHari);
                     const qty = parseInt(qtyInput.value) || 1;
-                    const rowSubtotal = dailyRate * qty * durasiHari;
-
-                    const itemRow = document.createElement('div');
-                    itemRow.className = 'breakdown-item';
-                    itemRow.innerHTML = `
-                        <span>• ${qty} Unit ${itemData.nama} × ${durasiHari} Hari</span>
-                        <span style="font-weight: 600;">Rp ${rowSubtotal.toLocaleString('id-ID')}</span>
-                    `;
                     
-                    const subDetailRow = document.createElement('div');
-                    subDetailRow.className = 'breakdown-item-sub';
-                    subDetailRow.innerHTML = `Tarif paket: Rp ${dailyRate.toLocaleString('id-ID')}/hari/unit`;
+                    const rowGrossTotal = baseRate * qty * durasiHari;
+                    const rowDiscount = (baseRate - dailyRate) * qty * durasiHari;
 
-                    modalBreakdownContainer.appendChild(itemRow);
-                    modalBreakdownContainer.appendChild(subDetailRow);
-                    grandTotal += rowSubtotal;
+                    if (modalBreakdownContainer) {
+                        const itemRow = document.createElement('div');
+                        itemRow.style.marginBottom = '8px';
+                        itemRow.innerHTML = `
+                            <div class="breakdown-item" style="margin-bottom: 2px;">
+                                <span>• ${qty} Unit ${itemData.nama} (${durasiHari} Hari)</span>
+                                <span style="font-weight: 600;">Rp ${rowGrossTotal.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div class="breakdown-item-sub" style="font-size: 11px; color: #64748b; font-style: italic; padding-left: 12px;">
+                                Rp ${baseRate.toLocaleString('id-ID')} x ${durasiHari} Hari ${qty > 1 ? `x ${qty} Unit` : ''}
+                            </div>
+                        `;
+
+                        modalBreakdownContainer.appendChild(itemRow);
+                    }
+                    grossMotorTotal += rowGrossTotal;
+                    if (rowDiscount > 0) {
+                        totalDiscount += rowDiscount;
+                    }
                 }
             });
 
-            if (!hasValidItem) {
+            // TAMPILKAN POTONGAN DISKON PROMO PAKET JIKA ADA DISKON
+            if (modalBreakdownContainer && totalDiscount > 0) {
+                const discountRow = document.createElement('div');
+                discountRow.className = 'breakdown-item';
+                discountRow.style.color = '#16a34a';
+                discountRow.style.fontWeight = '700';
+                discountRow.style.marginTop = '6px';
+                discountRow.innerHTML = `
+                    <span><i class="fa-solid fa-tags"></i> Potongan ${getTierName(durasiHari)}</span>
+                    <span>- Rp ${totalDiscount.toLocaleString('id-ID')}</span>
+                `;
+                modalBreakdownContainer.appendChild(discountRow);
+            }
+
+            // BIAYA PENGANTARAN & PENGEMBALIAN TERPISAH
+            const areaAntarElem = document.getElementById('area_antar');
+            const areaKembaliElem = document.getElementById('area_kembali');
+
+            const feeAntar = (areaAntarElem && areaAntarElem.selectedIndex >= 0 && areaAntarElem.options[areaAntarElem.selectedIndex].hasAttribute('data-fee')) 
+                ? Number(areaAntarElem.options[areaAntarElem.selectedIndex].getAttribute('data-fee')) : 0;
+
+            const feeKembali = (areaKembaliElem && areaKembaliElem.selectedIndex >= 0 && areaKembaliElem.options[areaKembaliElem.selectedIndex].hasAttribute('data-fee')) 
+                ? Number(areaKembaliElem.options[areaKembaliElem.selectedIndex].getAttribute('data-fee')) : 0;
+
+            const totalOngkir = feeAntar + feeKembali;
+
+            if (modalBreakdownContainer) {
+                // Biaya Pengantaran
+                const deliveryRow = document.createElement('div');
+                deliveryRow.className = 'breakdown-item';
+                deliveryRow.style.marginTop = '6px';
+                deliveryRow.style.paddingTop = '6px';
+                deliveryRow.style.borderTop = '1px dashed #cbd5e1';
+                deliveryRow.innerHTML = `
+                    <span>• Biaya Pengantaran</span>
+                    <span style="font-weight: 600;">${feeAntar > 0 ? `Rp ${feeAntar.toLocaleString('id-ID')}` : 'Free (Rp 0)'}</span>
+                `;
+                modalBreakdownContainer.appendChild(deliveryRow);
+
+                // Biaya Pengembalian
+                const returnRow = document.createElement('div');
+                returnRow.className = 'breakdown-item';
+                returnRow.style.marginTop = '4px';
+                returnRow.innerHTML = `
+                    <span>• Biaya Pengembalian</span>
+                    <span style="font-weight: 600;">${feeKembali > 0 ? `Rp ${feeKembali.toLocaleString('id-ID')}` : 'Free (Rp 0)'}</span>
+                `;
+                modalBreakdownContainer.appendChild(returnRow);
+            }
+
+            if (!hasValidItem && modalBreakdownContainer) {
                 const emptyMsg = `<div style="color: #94a3b8; font-style: italic;">Pilih unit motor untuk melihat rincian...</div>`;
                 modalBreakdownContainer.innerHTML = emptyMsg;
             }
 
+            const netMotorTotal = grossMotorTotal - totalDiscount;
+            const grandTotal = netMotorTotal + totalOngkir;
+
             const formattedGrandTotal = `Rp ${grandTotal.toLocaleString('id-ID')}`;
-            document.getElementById('modalGrandTotalDisplay').textContent = formattedGrandTotal;
+            const revTotalHarga = document.getElementById('revTotalHarga');
+            if (revTotalHarga) revTotalHarga.textContent = formattedGrandTotal;
+
+            document.getElementById('ongkir').value = totalOngkir;
             document.getElementById('sub_total').value = grandTotal;
         }
 
-        function openPriceModal() {
-            document.getElementById('priceModalOverlay').classList.add('active');
-        }
-
-        function closePriceModal() {
-            document.getElementById('priceModalOverlay').classList.remove('active');
-        }
-
-        function closePriceModalOnOutside(event) {
-            if (event.target.id === 'priceModalOverlay') {
-                closePriceModal();
-            }
-        }
-
-        function submitForm(event) {
+        // FUNGSIONALITAS PRE-SUBMIT REVIEW DATA
+        function openReviewModal(event) {
             event.preventDefault();
 
-            const randomCode = 'BKR-' + Math.random().toString(36).substring(2, 5).toUpperCase();
+            const areaAntarVal = document.getElementById('area_antar').value;
+            const alamatAntarVal = document.getElementById('alamat_antar').value;
+
+            if (!areaAntarVal || !alamatAntarVal.trim()) {
+                showToast("Mohon lengkapi Area dan Alamat Pengantaran!");
+                return;
+            }
 
             let listMotorStr = "";
             const cards = document.querySelectorAll('.motor-row-card');
             cards.forEach(card => {
                 const select = card.querySelector('.motor-select');
-                const qty = card.querySelector('.motor-qty').value;
+                const qty = parseInt(card.querySelector('.motor-qty').value) || 1;
                 if(select.value) {
-                    listMotorStr += `- ${select.value} (${qty})\n`;
+                    listMotorStr += `${qty} Unit ${select.value}, `;
+                }
+            });
+
+            if (!listMotorStr) {
+                showToast("Pilih unit motor terlebih dahulu!");
+                return;
+            }
+
+            calculateTotal();
+
+            const areaKembaliVal = document.getElementById('area_kembali').value || areaAntarVal;
+            const alamatKembaliVal = document.getElementById('alamat_kembali').value || alamatAntarVal;
+
+            document.getElementById('revNama').textContent = document.getElementById('nama').value;
+            document.getElementById('revWa').textContent = document.getElementById('whatsapp').value;
+            document.getElementById('revMotor').textContent = listMotorStr.replace(/,\s*$/, "");
+            document.getElementById('revTanggal').textContent = document.getElementById('tanggal_sewa').value;
+            document.getElementById('revDurasi').textContent = document.getElementById('durasi_label').value;
+            document.getElementById('revPengantaran').textContent = `${alamatAntarVal}, ${areaAntarVal} (${document.getElementById('waktu_antar').value} WITA)`;
+            document.getElementById('revPengembalian').textContent = `${alamatKembaliVal}, ${areaKembaliVal} (${document.getElementById('waktu_kembali').value} WITA)`;
+            document.getElementById('revCatatan').textContent = document.getElementById('pesan_tambahan').value || '-';
+
+            document.getElementById('reviewModalOverlay').classList.add('active');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModalOverlay').classList.remove('active');
+        }
+
+        async function executeSubmitForm() {
+            closeReviewModal();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            submitBtn.disabled = true;
+            submitBtnText.textContent = "Menyimpan...";
+
+            const randomCode = 'BKR-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            const INVOICE_FOLDER_URL = `https://drive.google.com/drive/folders/1--ewAqkelRMPil7D78VVBFOmU8A0s0jd`;
+
+            let listMotorStr = "";
+            let totalQty = 0;
+            const cards = document.querySelectorAll('.motor-row-card');
+            cards.forEach(card => {
+                const select = card.querySelector('.motor-select');
+                const qty = parseInt(card.querySelector('.motor-qty').value) || 1;
+                if(select.value) {
+                    listMotorStr += `- ${select.value} (${qty} Unit)\n`;
+                    totalQty += qty;
                 }
             });
 
@@ -1027,13 +1612,46 @@
             const tglSewa = document.getElementById('tanggal_sewa').value;
             const durasiNum = document.getElementById('durasi').value;
             const durasiStr = `${durasiNum} Hari`;
+            const areaAntar = document.getElementById('area_antar').value;
             const alamatAntar = document.getElementById('alamat_antar').value;
             const jamAntar = document.getElementById('waktu_antar').value;
+            const areaKembali = document.getElementById('area_kembali').value;
             const alamatKembali = document.getElementById('alamat_kembali').value;
             const jamKembali = document.getElementById('waktu_kembali').value;
             const pesan = document.getElementById('pesan_tambahan').value || '-';
-            const totalBayar = document.getElementById('modalGrandTotalDisplay').textContent;
+            const totalBayar = document.getElementById('revTotalHarga').textContent;
             const tierName = getTierName(durasiHari);
+
+            const payload = {
+                bookingCode: randomCode,
+                nama: nama,
+                whatsapp: wa,
+                tanggalMulai: selectedStartDate ? selectedStartDate.toISOString() : new Date().toISOString(),
+                tanggalSelesai: selectedEndDate ? selectedEndDate.toISOString() : new Date().toISOString(),
+                durasi: durasiNum,
+                qty: totalQty,
+                jenisMotor: listMotorStr.replace(/\n/g, ', '),
+                alamatAntar: `[${areaAntar}] ${alamatAntar}`,
+                waktuAntar: jamAntar,
+                alamatKembali: `[${areaKembali}] ${alamatKembali}`,
+                waktuKembali: jamKembali,
+                pesan: pesan,
+                subTotal: document.getElementById('sub_total').value
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.log('Sending backup data...');
+            }
+
+            submitBtn.disabled = false;
+            submitBtnText.textContent = "Review & Booking";
 
             const waText = 
 `*RESERVASI SEWA MOTOR - BIKARENT*
@@ -1046,39 +1664,64 @@
 ${listMotorStr}
 *Paket:* ${tierName}
 *Tanggal:* ${tglSewa} (${durasiStr})
-*Penyerahan:* ${alamatAntar} (${jamAntar} WITA)
-*Pengembalian:* ${alamatKembali} (${jamKembali} WITA)
+*Pengantaran:* Area ${areaAntar} - ${alamatAntar} (${jamAntar} WITA)
+*Pengembalian:* Area ${areaKembali} - ${alamatKembali} (${jamKembali} WITA)
 *Catatan:* ${pesan}
 
-*Estimasi Total:* ${totalBayar}
+*Total Biaya:* ${totalBayar}
+*Download Invoice:* ${INVOICE_FOLDER_URL}
 ----------------------------------------
-Halo Admin Bikarent, mohon konfirmasi untuk pesanan saya di atas. Terima kasih!`;
+Halo Admin Bikarent, saya sudah memeriksa detail pesanan di atas dan ingin melanjutkan reservasi. Mohon konfirmasi ketersediaan unit. Terima kasih!`;
 
-            const payload = {
-                bookingCode: randomCode,
-                nama: nama,
-                whatsapp: wa,
-                tanggalMulai: selectedStartDate.toISOString(),
-                tanggalSelesai: selectedEndDate.toISOString(),
-                durasi: durasiNum,
-                jenisMotor: listMotorStr.replace(/\n/g, ', '),
-                alamatAntar: alamatAntar,
-                waktuAntar: jamAntar,
-                alamatKembali: alamatKembali,
-                waktuKembali: jamKembali,
-                pesan: pesan,
-                subTotal: document.getElementById('sub_total').value
-            };
+            // SALIN DRAF PESAN KE CLIPBOARD OTOMATIS
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(waText);
+                } else {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = waText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+            } catch (err) {
+                console.log("Gagal menyalin otomatis:", err);
+            }
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(e => console.log('Saved to Google Sheets'));
+            // Set link tombol download invoice ke folder Google Drive
+            const btnInvoice = document.getElementById('btnDownloadInvoice');
+            if (btnInvoice) {
+                btnInvoice.href = INVOICE_FOLDER_URL;
+            }
 
             const waUrl = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(waText)}`;
-            window.open(waUrl, '_blank');
+
+            const confirmWaBtn = document.getElementById('confirmWaBtn');
+            confirmWaBtn.onclick = function() {
+                window.open(waUrl, '_blank');
+                closeSuccessModalAndResetForm();
+            };
+
+            document.getElementById('successModalOverlay').classList.add('active');
+        }
+
+        // FUNGSI RESET FORM KEMBALI KE KONDISI NORMAL / DEFAULT
+        function closeSuccessModalAndResetForm() {
+            document.getElementById('successModalOverlay').classList.remove('active');
+            
+            // Reset seluruh field form
+            const form = document.getElementById('bookingForm');
+            if (form) form.reset();
+
+            // Reset flatpickr & tanggal
+            initFlatpickr();
+
+            // Reset baris pilihan motor
+            renderInitialMotorRow();
+
+            // Kembalikan ke Tab / Step 1
+            switchStep(1);
         }
     </script>
 </body>
